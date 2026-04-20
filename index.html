@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Backyard Boil — Place Your Order</title>
+<style>
+  :root{
+    --wood:#3a2415;
+    --wood-dark:#2a1810;
+    --red:#c4242b;
+    --red-dark:#9c1b21;
+    --yellow:#f5c518;
+    --cream:#fbf3e3;
+    --ink:#1a0d08;
+    --muted:#7a6654;
+    --line:rgba(255,255,255,0.08);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:
+      radial-gradient(1200px 600px at 20% 0%, rgba(245,197,24,0.06), transparent 60%),
+      radial-gradient(900px 500px at 100% 100%, rgba(196,36,43,0.08), transparent 60%),
+      var(--wood);
+    color:var(--cream);
+    min-height:100vh;
+    padding:20px;
+  }
+  .wrap{max-width:560px;margin:0 auto}
+  header{
+    text-align:center;
+    padding:24px 12px 8px;
+  }
+  header .eyebrow{
+    letter-spacing:0.3em;
+    font-size:11px;
+    color:var(--yellow);
+    text-transform:uppercase;
+  }
+  header h1{
+    font-size:34px;
+    margin:6px 0 4px;
+    color:var(--cream);
+    font-weight:800;
+    letter-spacing:-0.5px;
+  }
+  header h1 .lobster{color:var(--red)}
+  header p{margin:0;color:#e5d4b1;font-size:14px}
+  form{
+    background:var(--wood-dark);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:22px;
+    margin-top:18px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  }
+  .field{margin-bottom:18px}
+  label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:6px;
+    color:#f0e2c6;
+    letter-spacing:0.02em;
+  }
+  input[type=text], input[type=tel], input[type=number], select, textarea{
+    width:100%;
+    background:var(--wood);
+    color:var(--cream);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:16px;
+    outline:none;
+    transition:border .15s, box-shadow .15s;
+  }
+  input:focus, select:focus, textarea:focus{
+    border-color:var(--yellow);
+    box-shadow:0 0 0 3px rgba(245,197,24,0.18);
+  }
+  textarea{min-height:70px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .spice{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+  .spice button{
+    border:1px solid rgba(255,255,255,0.1);
+    background:var(--wood);
+    color:var(--cream);
+    padding:10px 6px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:13px;
+    cursor:pointer;
+    transition:transform .05s, background .15s, border-color .15s;
+  }
+  .spice button[data-val="Mild"].active{background:#2f7a3a;border-color:#2f7a3a}
+  .spice button[data-val="Medium"].active{background:#d59f2a;border-color:#d59f2a;color:#1a0d08}
+  .spice button[data-val="Spicy"].active{background:#c4242b;border-color:#c4242b}
+  .spice button[data-val="XSpicy"].active{background:#7b0c11;border-color:#7b0c11}
+  .qty{display:flex;align-items:center;gap:10px}
+  .qty button{
+    width:38px;height:38px;border-radius:10px;border:1px solid rgba(255,255,255,0.14);
+    background:var(--wood);color:var(--cream);font-size:20px;font-weight:700;cursor:pointer;
+  }
+  .qty input{flex:1;text-align:center}
+  .addons{display:grid;gap:10px}
+  .addon{
+    display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;
+    padding:10px 12px;background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:12px;
+  }
+  .addon .name{font-size:14px}
+  .addon .price{font-size:12px;color:var(--muted);display:block}
+  .check{display:flex;align-items:center;gap:10px;background:var(--wood);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.08)}
+  .check input{width:18px;height:18px;accent-color:var(--red)}
+  .includes{
+    font-size:12px;color:#ffd776;margin-top:6px;display:none;
+    padding:8px 10px;background:rgba(245,197,24,0.08);border-radius:8px;border:1px dashed rgba(245,197,24,0.35);
+  }
+  .includes.show{display:block}
+  .total-card{
+    margin-top:10px;background:linear-gradient(180deg,#1a0d08,#2a1810);
+    border:1px solid rgba(245,197,24,0.2);border-radius:14px;padding:16px 18px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .total-card .label{font-size:12px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+  .total-card .val{font-size:30px;font-weight:800;color:var(--yellow)}
+  button.submit{
+    width:100%;margin-top:16px;background:var(--red);color:#fff;border:none;border-radius:12px;
+    padding:16px;font-size:17px;font-weight:800;letter-spacing:0.03em;cursor:pointer;
+    box-shadow:0 10px 24px rgba(196,36,43,0.35);
+  }
+  button.submit:hover{background:var(--red-dark)}
+  button.submit:disabled{opacity:0.6;cursor:not-allowed}
+  .note{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}
+  .success{
+    display:none;text-align:center;padding:24px;background:rgba(47,122,58,0.15);
+    border:1px solid #2f7a3a;border-radius:12px;margin-top:16px;
+  }
+  .success.show{display:block}
+  .error{color:#ffb4b4;font-size:13px;margin-top:8px;display:none}
+  .error.show{display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Pickup Orders</div>
+    <h1><span class="lobster">🦞</span> Backyard Boil</h1>
+    <p>Order ahead. Skip the line. Grab &amp; geaux.</p>
+  </header>
+
+  <form id="orderForm" novalidate>
+    <div class="field">
+      <label for="customerName">Your Name</label>
+      <input id="customerName" name="customerName" type="text" required />
+    </div>
+
+    <div class="field">
+      <label for="phone">Phone Number</label>
+      <input id="phone" name="phone" type="tel" placeholder="(504) 555-1212" required />
+    </div>
+
+    <div class="field">
+      <label for="pickupTime">Pickup Time</label>
+      <select id="pickupTime" name="pickupTime" required>
+        <option value="">Choose a time…</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Crawfish (lbs) — $12/lb · 3 lb minimum</label>
+      <div class="qty">
+        <button type="button" data-act="dec" data-target="crawfishLbs">−</button>
+        <input id="crawfishLbs" name="crawfishLbs" type="number" min="0" step="1" value="3" />
+        <button type="button" data-act="inc" data-target="crawfishLbs">+</button>
+      </div>
+      <div id="includes" class="includes"></div>
+    </div>
+
+    <div class="field">
+      <label>Spice Level</label>
+      <div class="spice" id="spice">
+        <button type="button" data-val="Mild">Mild</button>
+        <button type="button" data-val="Medium">Medium</button>
+        <button type="button" data-val="Spicy" class="active">Spicy</button>
+        <button type="button" data-val="XSpicy">X-Spicy</button>
+      </div>
+      <input type="hidden" id="spiceLevel" name="spiceLevel" value="Spicy" />
+    </div>
+
+    <div class="field">
+      <label>Add-ons</label>
+      <div class="addons">
+        <div class="addon">
+          <div>
+            <div class="name">Sausage</div>
+            <span class="price">$6 per lb</span>
+          </div>
+          <div class="qty">
+            <button type="button" data-act="dec" data-target="sausageLbs">−</button>
+            <input id="sausageLbs" name="sausageLbs" type="number" min="0" step="1" value="0" />
+            <button type="button" data-act="inc" data-target="sausageLbs">+</button>
+          </div>
+        </div>
+        <div class="addon">
+          <div>
+            <div class="name">Potatoes</div>
+            <span class="price">$1 per 2 potatoes</span>
+          </div>
+          <div class="qty">
+            <button type="button" data-act="dec" data-target="potatoes">−</button>
+            <input id="potatoes" name="potatoes" type="number" min="0" step="1" value="0" />
+            <button type="button" data-act="inc" data-target="potatoes">+</button>
+          </div>
+        </div>
+        <div class="addon">
+          <div>
+            <div class="name">Corn</div>
+            <span class="price">$2 each</span>
+          </div>
+          <div class="qty">
+            <button type="button" data-act="dec" data-target="corn">−</button>
+            <input id="corn" name="corn" type="number" min="0" step="1" value="0" />
+            <button type="button" data-act="inc" data-target="corn">+</button>
+          </div>
+        </div>
+        <label class="check">
+          <input id="sauceBottle" type="checkbox" />
+          <span>Sauce Bottle <span style="color:var(--muted);font-size:12px">· $10</span></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="notes">Notes (optional)</label>
+      <textarea id="notes" name="notes" placeholder="Allergies, special requests…"></textarea>
+    </div>
+
+    <div class="total-card">
+      <div>
+        <div class="label">Estimated Total</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">Owner confirms via text after payment</div>
+      </div>
+      <div class="val" id="total">$36</div>
+    </div>
+
+    <button class="submit" type="submit" id="submitBtn">Send Order Request</button>
+    <div class="error" id="err"></div>
+    <div class="note">We'll text you back to confirm payment and your pickup time.</div>
+
+    <div class="success" id="success">
+      <h3 style="margin:0 0 6px">🎉 Order received!</h3>
+      <p style="margin:0;color:#d8e9d8">We'll text you to confirm payment. Come at your pickup time — your label will already be on the box.</p>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Paste your Make webhook URL here once you've created the webhook in Make:
+  const WEBHOOK_URL = "https://hook.us2.make.com/tofyuzccf4v8ehsauidvy8uk7p7dqibt";
+
+  // Pickup time slots — 11:00am to 7:00pm in 30-min increments
+  (function buildTimes(){
+    const sel = document.getElementById('pickupTime');
+    const start = 11 * 60; // 11:00
+    const end = 19 * 60;   // 19:00
+    for(let m = start; m <= end; m += 30){
+      const h = Math.floor(m/60);
+      const mm = m % 60 === 0 ? '00' : '30';
+      const suffix = h >= 12 ? 'pm' : 'am';
+      const h12 = ((h + 11) % 12) + 1;
+      const label = `${h12}:${mm}${suffix}`;
+      const opt = document.createElement('option');
+      opt.value = label;
+      opt.textContent = label;
+      sel.appendChild(opt);
+    }
+  })();
+
+  // Qty +/- buttons
+  document.querySelectorAll('.qty button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      let v = parseInt(target.value || '0', 10);
+      if(btn.dataset.act === 'inc') v++;
+      else v = Math.max(0, v - 1);
+      target.value = v;
+      recalc();
+    });
+  });
+
+  // Spice buttons
+  document.querySelectorAll('#spice button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#spice button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('spiceLevel').value = btn.dataset.val;
+    });
+  });
+
+  // Pricing
+  const PRICE = {
+    crawfish: 12,
+    sausage: 6,
+    potatoPer2: 1,   // $1 for 2 potatoes → $0.50 each
+    corn: 2,
+    sauce: 10,
+  };
+
+  function recalc(){
+    const cf = Math.max(0, parseInt(document.getElementById('crawfishLbs').value || '0', 10));
+    const sg = Math.max(0, parseInt(document.getElementById('sausageLbs').value || '0', 10));
+    const po = Math.max(0, parseInt(document.getElementById('potatoes').value || '0', 10));
+    const co = Math.max(0, parseInt(document.getElementById('corn').value || '0', 10));
+    const sc = document.getElementById('sauceBottle').checked ? 1 : 0;
+
+    const total =
+      cf * PRICE.crawfish +
+      sg * PRICE.sausage +
+      Math.ceil(po / 2) * PRICE.potatoPer2 +
+      co * PRICE.corn +
+      sc * PRICE.sauce;
+
+    document.getElementById('total').textContent = '$' + total;
+
+    // Free-includes hint for every 5 lbs of crawfish
+    const blocks = Math.floor(cf / 5);
+    const inc = document.getElementById('includes');
+    if(blocks > 0){
+      inc.classList.add('show');
+      inc.textContent = `Includes free: ${5*blocks} sausage slices · ${blocks} potato · ${2*blocks} × ¼ corn`;
+    } else {
+      inc.classList.remove('show');
+    }
+  }
+  ['crawfishLbs','sausageLbs','potatoes','corn'].forEach(id=>{
+    document.getElementById(id).addEventListener('input', recalc);
+  });
+  document.getElementById('sauceBottle').addEventListener('change', recalc);
+  recalc();
+
+  // Submit
+  document.getElementById('orderForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const err = document.getElementById('err');
+    err.classList.remove('show');
+
+    const cfLbs = parseInt(document.getElementById('crawfishLbs').value || '0', 10);
+    if(cfLbs > 0 && cfLbs < 3){
+      err.textContent = 'Crawfish has a 3 lb minimum.';
+      err.classList.add('show');
+      return;
+    }
+
+    const name = document.getElementById('customerName').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const time = document.getElementById('pickupTime').value;
+    if(!name || !phone || !time){
+      err.textContent = 'Please fill in name, phone, and a pickup time.';
+      err.classList.add('show');
+      return;
+    }
+
+    const sg = parseInt(document.getElementById('sausageLbs').value || '0', 10);
+    const po = parseInt(document.getElementById('potatoes').value || '0', 10);
+    const co = parseInt(document.getElementById('corn').value || '0', 10);
+    const sc = document.getElementById('sauceBottle').checked;
+    const total =
+      cfLbs * 12 + sg * 6 + Math.ceil(po/2) * 1 + co * 2 + (sc ? 10 : 0);
+
+    const payload = {
+      customerName: name,
+      phone,
+      pickupTime: time,
+      crawfishLbs: cfLbs,
+      spiceLevel: document.getElementById('spiceLevel').value,
+      shrimpLbs: 0,
+      sausageLbs: sg,
+      potatoes: po,
+      corn: co,
+      sauceBottle: sc,
+      notes: document.getElementById('notes').value.trim(),
+      total,
+      paid: 0,
+      balance: total,
+      paymentStatus: "Unpaid",
+      orderStatus: "New",
+      orderSource: "Web Form",
+      labelPrinted: false
+    };
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    try {
+      if(!WEBHOOK_URL || WEBHOOK_URL === "YOUR_MAKE_WEBHOOK_URL_HERE"){
+        throw new Error("Webhook URL not configured yet.");
+      }
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if(!res.ok) throw new Error('Server returned ' + res.status);
+      document.getElementById('orderForm').querySelectorAll('.field, .total-card, .submit, .note').forEach(el => el.style.display='none');
+      document.getElementById('success').classList.add('show');
+    } catch(ex){
+      err.textContent = 'Could not send order: ' + ex.message;
+      err.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Send Order Request';
+    }
+  });
+</script>
+</body>
+</html>
