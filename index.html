@@ -129,6 +129,13 @@
     padding:10px;background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:10px;
   }
   .split-row input[type=number]{padding:8px 10px;font-size:14px}
+  .split-row .split-other-input{
+    grid-column:1 / -1;display:none;padding:9px 12px;font-size:13px;
+    background:rgba(107,78,163,0.12);border:1px solid #6b4ea3;border-radius:8px;
+    color:var(--cream);
+  }
+  .split-row.other-active .split-other-input{display:block}
+  .split-row .split-other-input::placeholder{color:rgba(255,255,255,0.5)}
   .split-row .mini-spice{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
   .split-row .mini-spice button{
     border:1px solid rgba(255,255,255,0.1);background:var(--wood-dark);color:var(--cream);
@@ -729,16 +736,21 @@
         <button type="button" data-val="Other">${t('otherShort')}</button>
       </div>
       <button type="button" class="rm" aria-label="Remove">×</button>
+      <input type="text" class="split-other-input" data-i18n-placeholder="otherPh" placeholder="${t('otherPh')}" />
     `;
     splitRows.appendChild(row);
     row.querySelectorAll('.mini-spice button').forEach(btn => {
       btn.addEventListener('click', () => {
         row.querySelectorAll('.mini-spice button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+        const isOther = btn.dataset.val === 'Other';
+        row.classList.toggle('other-active', isOther);
+        if(!isOther) row.querySelector('.split-other-input').value = '';
         updateSplitSummary();
       });
     });
     row.querySelector('.split-lbs').addEventListener('input', updateSplitSummary);
+    row.querySelector('.split-other-input').addEventListener('input', updateSplitSummary);
     row.querySelector('.rm').addEventListener('click', () => { row.remove(); updateSplitSummary(); });
     updateSplitSummary();
   }
@@ -748,7 +760,8 @@
     return Array.from(splitRows.querySelectorAll('.split-row')).map(r => {
       const lbs = parseInt(r.querySelector('.split-lbs').value || '0', 10);
       const sp = r.querySelector('.mini-spice button.active');
-      return { lbs, spice: sp ? sp.dataset.val : '' };
+      const otherNote = (r.querySelector('.split-other-input').value || '').trim();
+      return { lbs, spice: sp ? sp.dataset.val : '', otherNote };
     }).filter(x => x.lbs > 0 && x.spice);
   }
   function spiceLabel(v){
@@ -844,10 +857,19 @@
         err.classList.add('show'); return;
       }
       spiceLevel = 'Split';
-      spiceBreakdown = parts.map(p => `${p.lbs} lbs ${p.spice}`).join(' + ');
-      if(parts.some(p => p.spice === 'Other') && !otherSpiceNote){
+      // Validate: any row with Other must have its own note filled
+      const missingOther = parts.find(p => p.spice === 'Other' && !p.otherNote);
+      if(missingOther){
         err.textContent = t('errOther'); err.classList.add('show'); return;
       }
+      spiceBreakdown = parts.map(p =>
+        p.spice === 'Other' && p.otherNote
+          ? `${p.lbs} lbs Other: ${p.otherNote}`
+          : `${p.lbs} lbs ${p.spice}`
+      ).join(' + ');
+      // Aggregate per-row Other notes into the single otherSpiceNote field for Notion
+      const otherParts = parts.filter(p => p.spice === 'Other' && p.otherNote).map(p => p.otherNote);
+      if(otherParts.length > 0) otherSpiceNote = otherParts.join(' | ');
     } else if(spiceLevel === 'Other' && !otherSpiceNote){
       err.textContent = t('errOther'); err.classList.add('show'); return;
     }
