@@ -69,6 +69,16 @@
   textarea{min-height:70px;resize:vertical}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
+  .order-info-card{
+    background:var(--wood);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:20px;
+  }
+  .order-info-card .field{margin-bottom:14px}
+  .order-info-card .field:last-child{margin-bottom:0}
+
   .cal{background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;}
   .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
   .cal-head .month{font-weight:800;font-size:16px;color:var(--cream);}
@@ -168,6 +178,7 @@
     background:var(--wood);color:var(--cream);font-size:20px;font-weight:700;cursor:pointer;
   }
   .qty input{flex:1;text-align:center}
+
   .addons{display:grid;gap:10px}
   .addon{
     display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;
@@ -175,6 +186,7 @@
   }
   .addon .name{font-size:14px}
   .addon .price{font-size:12px;color:var(--muted);display:block}
+
   .sauce-box{padding:12px;background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:12px;}
   .sauce-head{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;}
   .sauce-spice{display:none;margin-top:10px;grid-template-columns:repeat(3,1fr);gap:6px}
@@ -189,15 +201,50 @@
 
   .includes{font-size:12px;color:#ffd776;margin-top:6px;display:none;padding:8px 10px;background:rgba(245,197,24,0.08);border-radius:8px;border:1px dashed rgba(245,197,24,0.35);}
   .includes.show{display:block}
-  .total-card{
-    margin-top:10px;background:linear-gradient(180deg,#1a0d08,#2a1810);
-    border:1px solid rgba(245,197,24,0.2);border-radius:14px;padding:16px 18px;
-    display:flex;align-items:center;justify-content:space-between;
+
+  .bags-container{margin:20px 0}
+  .bag-card{
+    background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px;margin-bottom:16px;
   }
-  .total-card .label{font-size:12px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
-  .total-card .val{font-size:30px;font-weight:800;color:var(--yellow)}
+  .bag-card-header{
+    display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;
+  }
+  .bag-card-title{font-size:16px;font-weight:700;color:var(--cream)}
+  .bag-card-rm{
+    width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,0.14);
+    background:transparent;color:#ffb4b4;font-size:18px;cursor:pointer;display:none;
+  }
+  .bag-card-rm.show{display:block}
+  .bag-card-rm:hover{background:rgba(196,36,43,0.15)}
+
+  .bag-for{margin-bottom:12px}
+  .bag-for input{padding:10px 12px;font-size:14px}
+
+  .protein-section{margin-top:12px;margin-bottom:16px}
+  .protein-label{font-size:13px;font-weight:600;color:#f0e2c6;margin-bottom:8px;display:block}
+
+  .bag-subtotal{
+    font-size:13px;color:#ffd776;padding:10px;background:rgba(245,197,24,0.08);border-radius:8px;border:1px dashed rgba(245,197,24,0.35);
+    text-align:right;font-weight:700;
+  }
+
+  .add-bag-btn{
+    width:100%;padding:12px;border-radius:10px;border:1px dashed rgba(255,255,255,0.2);
+    background:transparent;color:#f0e2c6;cursor:pointer;font-size:14px;font-weight:700;margin-bottom:20px;
+  }
+  .add-bag-btn:hover{background:rgba(255,255,255,0.04)}
+
+  .order-total-card{
+    background:linear-gradient(180deg,#1a0d08,#2a1810);
+    border:1px solid rgba(245,197,24,0.2);border-radius:14px;padding:16px 18px;
+    margin-bottom:16px;
+  }
+  .order-total-card .label{font-size:12px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+  .order-total-card .row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-bottom:8px}
+  .order-total-card .val{font-size:28px;font-weight:800;color:var(--yellow);text-align:right}
+
   button.submit{
-    width:100%;margin-top:16px;background:var(--red);color:#fff;border:none;border-radius:12px;
+    width:100%;background:var(--red);color:#fff;border:none;border-radius:12px;
     padding:16px;font-size:17px;font-weight:800;letter-spacing:0.03em;cursor:pointer;
     box-shadow:0 10px 24px rgba(196,36,43,0.35);
   }
@@ -224,149 +271,60 @@
   </header>
 
   <form id="orderForm" novalidate>
-    <div class="field">
-      <label for="customerName" data-i18n="yourName">Your Name</label>
-      <input id="customerName" name="customerName" type="text" required />
-    </div>
+    <div class="order-info-card">
+      <div class="field">
+        <label for="customerName" data-i18n="yourName">Your Name</label>
+        <input id="customerName" name="customerName" type="text" required />
+      </div>
 
-    <div class="field">
-      <label for="phone" data-i18n="phone">Phone Number</label>
-      <input id="phone" name="phone" type="tel" placeholder="(504) 555-1212" required />
-    </div>
+      <div class="field">
+        <label for="phone" data-i18n="phone">Phone Number</label>
+        <input id="phone" name="phone" type="tel" placeholder="(504) 555-1212" required />
+      </div>
 
-    <div class="field">
-      <label for="socialHandle" data-i18n="social">Facebook or Instagram Handle (optional)</label>
-      <input id="socialHandle" name="socialHandle" type="text" data-i18n-placeholder="socialPh" placeholder="@yourhandle — so we know you" />
-      <div class="field-hint" data-i18n="socialHint">So Viet knows who you are from Facebook or Instagram.</div>
-    </div>
+      <div class="field">
+        <label for="socialHandle" data-i18n="social">Facebook or Instagram Handle (optional)</label>
+        <input id="socialHandle" name="socialHandle" type="text" data-i18n-placeholder="socialPh" placeholder="@yourhandle — so we know you" />
+        <div class="field-hint" data-i18n="socialHint">So Viet knows who you are from Facebook or Instagram.</div>
+      </div>
 
-    <div class="field">
-      <label data-i18n="pickupDay">Pickup Day — Saturdays Only 🦞</label>
-      <div class="cal">
-        <div class="cal-head">
-          <button type="button" id="calPrev" aria-label="Previous month">‹</button>
-          <div class="month" id="calMonth">—</div>
-          <button type="button" id="calNext" aria-label="Next month">›</button>
+      <div class="field">
+        <label data-i18n="pickupDay">Pickup Day — Saturdays Only 🦞</label>
+        <div class="cal">
+          <div class="cal-head">
+            <button type="button" id="calPrev" aria-label="Previous month">‹</button>
+            <div class="month" id="calMonth">—</div>
+            <button type="button" id="calNext" aria-label="Next month">›</button>
+          </div>
+          <div class="dow" id="dowRow"></div>
+          <div class="days" id="calDays"></div>
         </div>
-        <div class="dow" id="dowRow"></div>
-        <div class="days" id="calDays"></div>
-      </div>
-      <div class="cal-pick empty" id="calPick" data-i18n="pickupHint">Tap a Saturday to pick your pickup day</div>
-      <input type="hidden" id="pickupDate" name="pickupDate" value="" />
-    </div>
-
-    <div class="field">
-      <label for="pickupTime" data-i18n="pickupTime">Pickup Time</label>
-      <select id="pickupTime" name="pickupTime" required>
-        <option value="" data-i18n="chooseTime">Choose a time…</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label data-i18n="crawfish">Crawfish (lbs) — $12/lb · 3 lb minimum</label>
-      <div class="qty">
-        <button type="button" data-act="dec" data-target="crawfishLbs">−</button>
-        <input id="crawfishLbs" name="crawfishLbs" type="number" min="0" step="1" value="3" />
-        <button type="button" data-act="inc" data-target="crawfishLbs">+</button>
-      </div>
-      <div id="includes" class="includes"></div>
-    </div>
-
-    <div class="field">
-      <label data-i18n="spiceLevel">Spice Level</label>
-      <div class="spice" id="spice">
-        <button type="button" data-val="Mild" data-i18n="mild">Mild</button>
-        <button type="button" data-val="Medium" data-i18n="medium">Medium</button>
-        <button type="button" data-val="Spicy" data-i18n="spicy" class="active">Spicy</button>
-        <button type="button" data-val="XSpicy" data-i18n="xspicy">X-Spicy</button>
-        <button type="button" data-val="Other" data-i18n="other">Other</button>
-      </div>
-      <input type="hidden" id="spiceLevel" name="spiceLevel" value="Spicy" />
-      <div class="other-note" id="otherNote">
-        <input id="otherSpiceNote" type="text" data-i18n-placeholder="otherPh" placeholder="Tell us what you want (e.g. ½ mild ½ lemon pepper)" />
+        <div class="cal-pick empty" id="calPick" data-i18n="pickupHint">Tap a Saturday to pick your pickup day</div>
+        <input type="hidden" id="pickupDate" name="pickupDate" value="" />
       </div>
 
-      <div class="split-toggle">
-        <span data-i18n="splitPrompt">Want different spice levels split across your lbs?</span>
-        <button type="button" id="splitBtn" data-i18n="split">Split</button>
-      </div>
-      <div class="split-box" id="splitBox">
-        <div id="splitRows"></div>
-        <button type="button" class="split-add" id="splitAdd" data-i18n="splitAdd">+ Add another spice portion</button>
-        <div class="split-summary" id="splitSummary"></div>
+      <div class="field">
+        <label for="pickupTime" data-i18n="pickupTime">Pickup Time</label>
+        <select id="pickupTime" name="pickupTime" required>
+          <option value="" data-i18n="chooseTime">Choose a time…</option>
+        </select>
       </div>
     </div>
 
-    <div class="field">
-      <label data-i18n="addons">Add-ons</label>
-      <div class="addons">
-        <div class="addon">
-          <div>
-            <div class="name" data-i18n="sausage">Sausage</div>
-            <span class="price" data-i18n="sausagePrice">$6 per lb</span>
-          </div>
-          <div class="qty">
-            <button type="button" data-act="dec" data-target="sausageLbs">−</button>
-            <input id="sausageLbs" name="sausageLbs" type="number" min="0" step="1" value="0" />
-            <button type="button" data-act="inc" data-target="sausageLbs">+</button>
-          </div>
-        </div>
-        <div class="addon">
-          <div>
-            <div class="name" data-i18n="potatoes">Potatoes</div>
-            <span class="price" data-i18n="potatoesPrice">$1 per 2 potatoes</span>
-          </div>
-          <div class="qty">
-            <button type="button" data-act="dec" data-target="potatoes">−</button>
-            <input id="potatoes" name="potatoes" type="number" min="0" step="1" value="0" />
-            <button type="button" data-act="inc" data-target="potatoes">+</button>
-          </div>
-        </div>
-        <div class="addon">
-          <div>
-            <div class="name" data-i18n="corn">Corn</div>
-            <span class="price" data-i18n="cornPrice">$2 each</span>
-          </div>
-          <div class="qty">
-            <button type="button" data-act="dec" data-target="corn">−</button>
-            <input id="corn" name="corn" type="number" min="0" step="1" value="0" />
-            <button type="button" data-act="inc" data-target="corn">+</button>
-          </div>
-        </div>
+    <div class="bags-container" id="bagsContainer"></div>
 
-        <div class="sauce-box">
-          <div class="sauce-head">
-            <div>
-              <div class="name" data-i18n="sauce">Sauce Bottle</div>
-              <span class="price" data-i18n="saucePrice">$10 each</span>
-            </div>
-            <div class="qty">
-              <button type="button" data-act="dec" data-target="sauceBottleQty">−</button>
-              <input id="sauceBottleQty" name="sauceBottleQty" type="number" min="0" step="1" value="0" />
-              <button type="button" data-act="inc" data-target="sauceBottleQty">+</button>
-            </div>
-          </div>
-          <div class="sauce-spice" id="sauceSpice">
-            <button type="button" data-val="Mild" data-i18n="mild">Mild</button>
-            <button type="button" data-val="Medium" data-i18n="medium">Medium</button>
-            <button type="button" data-val="Spicy" data-i18n="spicy">Spicy</button>
-          </div>
-          <input type="hidden" id="sauceBottleSpice" value="" />
-        </div>
+    <button type="button" class="add-bag-btn" id="addBagBtn" data-i18n="addBag">+ Add another bag</button>
+
+    <div class="order-total-card">
+      <div class="row">
+        <div class="label" data-i18n="totalBags">Total bags</div>
+        <div id="totalBagCount" style="font-size:14px;font-weight:700;color:var(--cream);">1</div>
       </div>
-    </div>
-
-    <div class="field">
-      <label for="notes" data-i18n="notes">Notes (optional)</label>
-      <textarea id="notes" name="notes" data-i18n-placeholder="notesPh" placeholder="Allergies, special requests…"></textarea>
-    </div>
-
-    <div class="total-card">
-      <div>
+      <div class="row">
         <div class="label" data-i18n="total">Estimated Total</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px" data-i18n="totalHint">Owner confirms via text after payment</div>
+        <div class="val" id="total">$36</div>
       </div>
-      <div class="val" id="total">$36</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:2px" data-i18n="totalHint">Owner confirms via text after payment</div>
     </div>
 
     <button class="submit" type="submit" id="submitBtn" data-i18n="submit">Send Order Request</button>
@@ -383,7 +341,11 @@
 <script>
   const WEBHOOK_URL = "https://hook.us2.make.com/tofyuzccf4v8ehsauidvy8uk7p7dqibt";
 
-  // ============= TRANSLATIONS =============
+  const PROTEINS = [
+    { key: 'crawfish', label: 'crawfish', price: 12, minLbs: 3, includesSides: true },
+    { key: 'shrimpHeadOn', label: 'shrimpHeadOn', price: 16, minLbs: 1, includesSides: false },
+  ];
+
   const T = {
     en: {
       eyebrow: "Pickup Orders",
@@ -399,6 +361,9 @@
       pickupTime: "Pickup Time",
       chooseTime: "Choose a time…",
       crawfish: "Crawfish (lbs) — $12/lb · 3 lb minimum",
+      shrimpHeadOn: "Head On Shrimp (lbs) — $16/lb · 1 lb minimum when ordering",
+      bagFor: "Bag For (optional)",
+      bagForPh: "e.g. Jane",
       spiceLevel: "Spice Level",
       mild: "Mild", medium: "Medium", spicy: "Spicy", xspicy: "X-Spicy", other: "Other",
       mildShort: "Mild", medShort: "Med", spicyShort: "Spicy", xspicyShort: "X-Spicy", otherShort: "Other",
@@ -412,8 +377,11 @@
       corn: "Corn", cornPrice: "$2 each",
       sauce: "Sauce Bottle", saucePrice: "$10 each",
       notes: "Notes (optional)", notesPh: "Allergies, special requests…",
+      bagSubtotal: "Bag subtotal",
+      totalBags: "Total bags",
       total: "Estimated Total",
       totalHint: "Owner confirms via text after payment",
+      addBag: "+ Add another bag",
       submit: "Send Order Request", sending: "Sending…",
       submitNote: "We'll text you back to confirm payment and your pickup time.",
       successTitle: "🎉 Order received!",
@@ -421,13 +389,15 @@
       errName: "Please enter your name and phone.",
       errDate: "Please pick a Saturday for pickup.",
       errTime: "Please pick a pickup time.",
-      errMin: "Crawfish has a 3 lb minimum.",
+      errMinCrawfish: "Crawfish has a 3 lb minimum.",
+      errMinShrimp: "Head On Shrimp has a 1 lb minimum (when ordering).",
+      errBagEmpty: "Each bag must have at least 3 lbs crawfish or 1 lb shrimp.",
       errSplit: (t, tgt) => `Split spice must equal ${tgt} lbs (currently ${t}).`,
       errOther: "You selected \"Other\" — please describe it in the note.",
       errSauce: "Please pick a sauce spice level (Mild/Medium/Spicy).",
       errSend: "Could not send order: ",
       includes: (s,p,c) => `Includes free: ${s} sausage slices · ${p} potato · ${c} × ¼ corn`,
-      splitTotal: (t,tgt) => `Total split: ${t} lbs · must equal ${tgt} lbs crawfish`,
+      splitTotal: (t,tgt) => `Total split: ${t} lbs · must equal ${tgt} lbs`,
       months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
       dows: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
       locale: "en-US"
@@ -446,6 +416,9 @@
       pickupTime: "Giờ Lấy",
       chooseTime: "Chọn giờ…",
       crawfish: "Tôm hùm đất (lbs) — $12/lb · tối thiểu 3 lb",
+      shrimpHeadOn: "Tôm Đầu Nguyên (lbs) — $16/lb · tối thiểu 1 lb khi đặt",
+      bagFor: "Túi Cho (không bắt buộc)",
+      bagForPh: "vd. Jane",
       spiceLevel: "Độ Cay",
       mild: "Nhẹ", medium: "Vừa", spicy: "Cay", xspicy: "Rất Cay", other: "Khác",
       mildShort: "Nhẹ", medShort: "Vừa", spicyShort: "Cay", xspicyShort: "Rất Cay", otherShort: "Khác",
@@ -459,8 +432,11 @@
       corn: "Bắp", cornPrice: "$2 mỗi cái",
       sauce: "Chai Nước Sốt", saucePrice: "$10 mỗi chai",
       notes: "Ghi Chú (không bắt buộc)", notesPh: "Dị ứng, yêu cầu đặc biệt…",
+      bagSubtotal: "Tổng túi",
+      totalBags: "Tổng số túi",
       total: "Tổng Ước Tính",
       totalHint: "Chủ sẽ nhắn tin xác nhận sau khi thanh toán",
+      addBag: "+ Thêm túi khác",
       submit: "Gửi Đơn Đặt", sending: "Đang gửi…",
       submitNote: "Chúng tôi sẽ nhắn tin xác nhận thanh toán và giờ lấy của bạn.",
       successTitle: "🎉 Đã nhận đơn!",
@@ -468,13 +444,15 @@
       errName: "Vui lòng nhập tên và số điện thoại.",
       errDate: "Vui lòng chọn một Thứ Bảy để lấy.",
       errTime: "Vui lòng chọn giờ lấy.",
-      errMin: "Tôm hùm đất tối thiểu 3 lb.",
+      errMinCrawfish: "Tôm hùm đất tối thiểu 3 lb.",
+      errMinShrimp: "Tôm Đầu Nguyên tối thiểu 1 lb (khi đặt).",
+      errBagEmpty: "Mỗi túi phải có ít nhất 3 lb tôm hùm hoặc 1 lb tôm.",
       errSplit: (t, tgt) => `Chia độ cay phải bằng ${tgt} lbs (hiện là ${t}).`,
       errOther: "Bạn đã chọn \"Khác\" — vui lòng ghi chú.",
       errSauce: "Vui lòng chọn độ cay nước sốt (Nhẹ/Vừa/Cay).",
       errSend: "Không thể gửi đơn: ",
       includes: (s,p,c) => `Miễn phí kèm theo: ${s} lát xúc xích · ${p} củ khoai · ${c} × ¼ bắp`,
-      splitTotal: (t,tgt) => `Tổng chia: ${t} lbs · phải bằng ${tgt} lbs tôm`,
+      splitTotal: (t,tgt) => `Tổng chia: ${t} lbs · phải bằng ${tgt} lbs`,
       months: ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"],
       dows: ["CN","T2","T3","T4","T5","T6","T7"],
       locale: "vi-VN"
@@ -493,6 +471,9 @@
       pickupTime: "Hora de Recogida",
       chooseTime: "Elige una hora…",
       crawfish: "Cangrejo de Río (lbs) — $12/lb · mínimo 3 lb",
+      shrimpHeadOn: "Camarón Cabeza Entera (lbs) — $16/lb · mínimo 1 lb al ordenar",
+      bagFor: "Bolsa Para (opcional)",
+      bagForPh: "ej. Jane",
       spiceLevel: "Nivel de Picante",
       mild: "Suave", medium: "Medio", spicy: "Picante", xspicy: "Muy Picante", other: "Otro",
       mildShort: "Suave", medShort: "Medio", spicyShort: "Picante", xspicyShort: "Muy Pic.", otherShort: "Otro",
@@ -506,8 +487,11 @@
       corn: "Elote", cornPrice: "$2 cada uno",
       sauce: "Botella de Salsa", saucePrice: "$10 cada una",
       notes: "Notas (opcional)", notesPh: "Alergias, solicitudes especiales…",
+      bagSubtotal: "Total bolsa",
+      totalBags: "Total bolsas",
       total: "Total Estimado",
       totalHint: "El dueño confirma por mensaje tras el pago",
+      addBag: "+ Añadir otra bolsa",
       submit: "Enviar Pedido", sending: "Enviando…",
       submitNote: "Te enviaremos un mensaje para confirmar el pago y tu hora.",
       successTitle: "🎉 ¡Pedido recibido!",
@@ -515,13 +499,15 @@
       errName: "Por favor ingresa tu nombre y teléfono.",
       errDate: "Por favor elige un sábado para recoger.",
       errTime: "Por favor elige una hora de recogida.",
-      errMin: "Mínimo 3 lb de cangrejo.",
+      errMinCrawfish: "Mínimo 3 lb de cangrejo.",
+      errMinShrimp: "Mínimo 1 lb de camarón (al ordenar).",
+      errBagEmpty: "Cada bolsa debe tener al menos 3 lb de cangrejo o 1 lb de camarón.",
       errSplit: (t, tgt) => `La división debe igualar ${tgt} lbs (actualmente ${t}).`,
       errOther: "Elegiste \"Otro\" — por favor describe en la nota.",
       errSauce: "Elige un nivel de picante (Suave/Medio/Picante).",
       errSend: "No se pudo enviar: ",
       includes: (s,p,c) => `Incluye gratis: ${s} rebanadas de salchicha · ${p} papa · ${c} × ¼ elote`,
-      splitTotal: (t,tgt) => `Total: ${t} lbs · debe igualar ${tgt} lbs de cangrejo`,
+      splitTotal: (t,tgt) => `Total: ${t} lbs · debe igualar ${tgt} lbs`,
       months: ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
       dows: ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"],
       locale: "es-ES"
@@ -534,7 +520,6 @@
 
   function applyLang(){
     document.documentElement.lang = lang;
-    // Simple text swaps
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       const v = T[lang][key];
@@ -545,15 +530,6 @@
       const v = T[lang][key];
       if(typeof v === 'string') el.setAttribute('placeholder', v);
     });
-    // Split button text (based on state)
-    splitBtn.textContent = splitOn ? t('splitOn') : t('split');
-    // Split row mini-spice buttons
-    document.querySelectorAll('.split-row .mini-spice button').forEach(btn => {
-      const v = btn.dataset.val;
-      const map = { Mild: 'mildShort', Medium: 'medShort', Spicy: 'spicyShort', XSpicy: 'xspicyShort', Other: 'otherShort' };
-      btn.textContent = t(map[v]);
-    });
-    // Day-of-week row
     const dow = document.getElementById('dowRow');
     dow.innerHTML = '';
     t('dows').forEach(d => {
@@ -561,22 +537,18 @@
       el.textContent = d;
       dow.appendChild(el);
     });
-    // Refresh calendar (months, selected-day label)
     renderCal();
-    // Lang bar active state
     document.querySelectorAll('.lang-bar button').forEach(b => {
       b.classList.toggle('on', b.dataset.lang === lang);
     });
-    // Total recalc (updates includes string)
+    renderBags();
     recalc();
-    updateSplitSummary();
   }
 
   document.querySelectorAll('.lang-bar button').forEach(b => {
     b.addEventListener('click', () => { lang = b.dataset.lang; applyLang(); });
   });
 
-  // ============= CALENDAR =============
   const today = new Date(); today.setHours(0,0,0,0);
   let viewYear = today.getFullYear();
   let viewMonth = today.getMonth();
@@ -633,7 +605,6 @@
     const prevBtn = document.getElementById('calPrev');
     prevBtn.disabled = (viewYear === today.getFullYear() && viewMonth === today.getMonth());
 
-    // Update pick label text if selection exists
     const pick = document.getElementById('calPick');
     if(selectedDate){
       pick.classList.remove('empty');
@@ -662,7 +633,6 @@
     renderCal();
   });
 
-  // ============= PICKUP TIMES =============
   (function buildTimes(){
     const sel = document.getElementById('pickupTime');
     const start = 11 * 60, end = 19 * 60;
@@ -679,51 +649,249 @@
     }
   })();
 
-  // ============= QTY +/- =============
-  document.querySelectorAll('.qty button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = document.getElementById(btn.dataset.target);
-      let v = parseInt(target.value || '0', 10);
-      if(btn.dataset.act === 'inc') v++;
-      else v = Math.max(0, v - 1);
-      target.value = v;
-      if(btn.dataset.target === 'sauceBottleQty') onSauceChange();
-      if(btn.dataset.target === 'crawfishLbs') updateSplitSummary();
-      recalc();
+  let bags = [{ id: 0 }];
+  let nextBagId = 1;
+
+  function getBag(bagId){
+    return bags.find(b => b.id === bagId);
+  }
+
+  function addProteinSectionHtml(bagId, proteinKey, label){
+    const prefix = `bag${bagId}_${proteinKey}`;
+    return `
+      <div class="protein-section">
+        <label class="protein-label" data-i18n="${label}">${t(label)}</label>
+        <div class="qty">
+          <button type="button" data-act="dec" data-target="${prefix}Lbs">−</button>
+          <input id="${prefix}Lbs" type="number" min="0" step="1" value="0" />
+          <button type="button" data-act="inc" data-target="${prefix}Lbs">+</button>
+        </div>
+        <div id="${prefix}Includes" class="includes"></div>
+
+        <div style="margin-top:8px">
+          <label style="margin-bottom:6px" data-i18n="spiceLevel">${t('spiceLevel')}</label>
+          <div class="spice" id="${prefix}Spice">
+            <button type="button" data-val="Mild" data-i18n="mild">${t('mild')}</button>
+            <button type="button" data-val="Medium" data-i18n="medium">${t('medium')}</button>
+            <button type="button" data-val="Spicy" data-i18n="spicy" class="active">${t('spicy')}</button>
+            <button type="button" data-val="XSpicy" data-i18n="xspicy">${t('xspicy')}</button>
+            <button type="button" data-val="Other" data-i18n="other">${t('other')}</button>
+          </div>
+          <input type="hidden" id="${prefix}SpiceLevel" value="Spicy" />
+          <div class="other-note" id="${prefix}OtherNote">
+            <input type="text" id="${prefix}OtherSpiceNote" data-i18n-placeholder="otherPh" placeholder="${t('otherPh')}" />
+          </div>
+
+          <div class="split-toggle">
+            <span data-i18n="splitPrompt">${t('splitPrompt')}</span>
+            <button type="button" id="${prefix}SplitBtn" data-i18n="split">${t('split')}</button>
+          </div>
+          <div class="split-box" id="${prefix}SplitBox">
+            <div id="${prefix}SplitRows"></div>
+            <button type="button" class="split-add" id="${prefix}SplitAdd" data-i18n="splitAdd">${t('splitAdd')}</button>
+            <div class="split-summary" id="${prefix}SplitSummary"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderBags(){
+    const container = document.getElementById('bagsContainer');
+    container.innerHTML = '';
+
+    bags.forEach((bag, idx) => {
+      const bagNum = idx + 1;
+      const card = document.createElement('div');
+      card.className = 'bag-card';
+      card.dataset.bagId = bag.id;
+
+      let html = `
+        <div class="bag-card-header">
+          <div class="bag-card-title">🦞 BAG ${bagNum}</div>
+          <button type="button" class="bag-card-rm" data-bag-id="${bag.id}" aria-label="Remove bag">×</button>
+        </div>
+
+        <div class="bag-for">
+          <label data-i18n="bagFor">${t('bagFor')}</label>
+          <input type="text" id="bag${bag.id}For" data-i18n-placeholder="bagForPh" placeholder="${t('bagForPh')}" />
+        </div>
+      `;
+
+      PROTEINS.forEach(p => {
+        html += addProteinSectionHtml(bag.id, p.key, p.label);
+      });
+
+      html += `
+        <div style="margin-top:16px">
+          <label style="margin-bottom:8px" data-i18n="addons">${t('addons')}</label>
+          <div class="addons">
+            <div class="addon">
+              <div>
+                <div class="name" data-i18n="sausage">${t('sausage')}</div>
+                <span class="price" data-i18n="sausagePrice">${t('sausagePrice')}</span>
+              </div>
+              <div class="qty">
+                <button type="button" data-act="dec" data-target="bag${bag.id}SausageLbs">−</button>
+                <input id="bag${bag.id}SausageLbs" type="number" min="0" step="1" value="0" />
+                <button type="button" data-act="inc" data-target="bag${bag.id}SausageLbs">+</button>
+              </div>
+            </div>
+            <div class="addon">
+              <div>
+                <div class="name" data-i18n="potatoes">${t('potatoes')}</div>
+                <span class="price" data-i18n="potatoesPrice">${t('potatoesPrice')}</span>
+              </div>
+              <div class="qty">
+                <button type="button" data-act="dec" data-target="bag${bag.id}Potatoes">−</button>
+                <input id="bag${bag.id}Potatoes" type="number" min="0" step="1" value="0" />
+                <button type="button" data-act="inc" data-target="bag${bag.id}Potatoes">+</button>
+              </div>
+            </div>
+            <div class="addon">
+              <div>
+                <div class="name" data-i18n="corn">${t('corn')}</div>
+                <span class="price" data-i18n="cornPrice">${t('cornPrice')}</span>
+              </div>
+              <div class="qty">
+                <button type="button" data-act="dec" data-target="bag${bag.id}Corn">−</button>
+                <input id="bag${bag.id}Corn" type="number" min="0" step="1" value="0" />
+                <button type="button" data-act="inc" data-target="bag${bag.id}Corn">+</button>
+              </div>
+            </div>
+
+            <div class="sauce-box">
+              <div class="sauce-head">
+                <div>
+                  <div class="name" data-i18n="sauce">${t('sauce')}</div>
+                  <span class="price" data-i18n="saucePrice">${t('saucePrice')}</span>
+                </div>
+                <div class="qty">
+                  <button type="button" data-act="dec" data-target="bag${bag.id}SauceQty">−</button>
+                  <input id="bag${bag.id}SauceQty" type="number" min="0" step="1" value="0" />
+                  <button type="button" data-act="inc" data-target="bag${bag.id}SauceQty">+</button>
+                </div>
+              </div>
+              <div class="sauce-spice" id="bag${bag.id}SauceSpice">
+                <button type="button" data-val="Mild" data-i18n="mild">${t('mild')}</button>
+                <button type="button" data-val="Medium" data-i18n="medium">${t('medium')}</button>
+                <button type="button" data-val="Spicy" data-i18n="spicy">${t('spicy')}</button>
+              </div>
+              <input type="hidden" id="bag${bag.id}SauceSpiceLevel" value="" />
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px">
+          <label data-i18n="notes">${t('notes')}</label>
+          <textarea id="bag${bag.id}Notes" data-i18n-placeholder="notesPh" placeholder="${t('notesPh')}"></textarea>
+        </div>
+
+        <div class="bag-subtotal" id="bag${bag.id}Subtotal" data-i18n="bagSubtotal">${t('bagSubtotal')}: $0</div>
+      `;
+
+      card.innerHTML = html;
+      container.appendChild(card);
+
+      if(bags.length > 1) card.querySelector('.bag-card-rm').classList.add('show');
+      card.querySelector('.bag-card-rm').addEventListener('click', () => removeBag(bag.id));
+
+      attachBagEventListeners(bag.id);
     });
-  });
+  }
 
-  // ============= MAIN SPICE =============
-  document.querySelectorAll('#spice button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('#spice button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const val = btn.dataset.val;
-      document.getElementById('spiceLevel').value = val;
-      document.getElementById('otherNote').classList.toggle('show', val === 'Other');
-      if(val !== 'Other') document.getElementById('otherSpiceNote').value = '';
+  function attachBagEventListeners(bagId){
+    const prefix = `bag${bagId}_`;
+
+    document.querySelectorAll(`[data-target^="${prefix}"]`).forEach(btn => {
+      if(!btn.classList.contains('qty-attached')){
+        btn.classList.add('qty-attached');
+        btn.addEventListener('click', () => {
+          const target = document.getElementById(btn.dataset.target);
+          let v = parseInt(target.value || '0', 10);
+          if(btn.dataset.act === 'inc') v++;
+          else v = Math.max(0, v - 1);
+          target.value = v;
+
+          if(btn.dataset.target.includes('SauceQty')){
+            const sauceSpiceDiv = document.getElementById(`bag${bagId}SauceSpice`);
+            const qty = v;
+            sauceSpiceDiv.classList.toggle('show', qty > 0);
+            if(qty === 0){
+              sauceSpiceDiv.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+              document.getElementById(`bag${bagId}SauceSpiceLevel`).value = '';
+            }
+          }
+
+          PROTEINS.forEach(p => {
+            if(btn.dataset.target.includes(`_${p.key}Lbs`)){
+              updateSplitSummary(bagId, p.key);
+            }
+          });
+
+          recalc();
+        });
+      }
     });
-  });
 
-  // ============= SPLIT SPICE =============
-  let splitOn = false;
-  const splitBtn = document.getElementById('splitBtn');
-  const splitBox = document.getElementById('splitBox');
-  const splitRows = document.getElementById('splitRows');
-  const splitAdd = document.getElementById('splitAdd');
+    PROTEINS.forEach(p => {
+      const spiceDiv = document.getElementById(`${prefix}${p.key}Spice`);
+      if(spiceDiv && !spiceDiv.classList.contains('spice-attached')){
+        spiceDiv.classList.add('spice-attached');
+        spiceDiv.querySelectorAll('button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            spiceDiv.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const val = btn.dataset.val;
+            document.getElementById(`${prefix}${p.key}SpiceLevel`).value = val;
+            document.getElementById(`${prefix}${p.key}OtherNote`).classList.toggle('show', val === 'Other');
+            if(val !== 'Other') document.getElementById(`${prefix}${p.key}OtherSpiceNote`).value = '';
+          });
+        });
+      }
 
-  splitBtn.addEventListener('click', () => {
-    splitOn = !splitOn;
-    splitBtn.classList.toggle('on', splitOn);
-    splitBtn.textContent = splitOn ? t('splitOn') : t('split');
-    splitBox.classList.toggle('show', splitOn);
-    if(splitOn && splitRows.children.length === 0){
-      addSplitRow(); addSplitRow();
+      const splitBtn = document.getElementById(`${prefix}${p.key}SplitBtn`);
+      if(splitBtn && !splitBtn.classList.contains('split-btn-attached')){
+        splitBtn.classList.add('split-btn-attached');
+        splitBtn.addEventListener('click', () => {
+          const splitBox = document.getElementById(`${prefix}${p.key}SplitBox`);
+          const splitRows = document.getElementById(`${prefix}${p.key}SplitRows`);
+          let isSplitOn = splitBox.classList.contains('show');
+          isSplitOn = !isSplitOn;
+          splitBtn.classList.toggle('on', isSplitOn);
+          splitBtn.textContent = isSplitOn ? t('splitOn') : t('split');
+          splitBox.classList.toggle('show', isSplitOn);
+          if(isSplitOn && splitRows.children.length === 0){
+            addSplitRowForBag(bagId, p.key);
+            addSplitRowForBag(bagId, p.key);
+          }
+          updateSplitSummary(bagId, p.key);
+        });
+      }
+
+      const splitAdd = document.getElementById(`${prefix}${p.key}SplitAdd`);
+      if(splitAdd && !splitAdd.classList.contains('split-add-attached')){
+        splitAdd.classList.add('split-add-attached');
+        splitAdd.addEventListener('click', () => addSplitRowForBag(bagId, p.key));
+      }
+    });
+
+    const sauceSpiceDiv = document.getElementById(`bag${bagId}SauceSpice`);
+    if(sauceSpiceDiv && !sauceSpiceDiv.classList.contains('sauce-spice-attached')){
+      sauceSpiceDiv.classList.add('sauce-spice-attached');
+      sauceSpiceDiv.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          sauceSpiceDiv.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          document.getElementById(`bag${bagId}SauceSpiceLevel`).value = btn.dataset.val;
+        });
+      });
     }
-    updateSplitSummary();
-  });
+  }
 
-  function addSplitRow(){
+  function addSplitRowForBag(bagId, proteinKey){
+    const prefix = `bag${bagId}_${proteinKey}`;
+    const splitRows = document.getElementById(`${prefix}SplitRows`);
     const row = document.createElement('div');
     row.className = 'split-row';
     row.innerHTML = `
@@ -746,17 +914,18 @@
         const isOther = btn.dataset.val === 'Other';
         row.classList.toggle('other-active', isOther);
         if(!isOther) row.querySelector('.split-other-input').value = '';
-        updateSplitSummary();
+        updateSplitSummary(bagId, proteinKey);
       });
     });
-    row.querySelector('.split-lbs').addEventListener('input', updateSplitSummary);
-    row.querySelector('.split-other-input').addEventListener('input', updateSplitSummary);
-    row.querySelector('.rm').addEventListener('click', () => { row.remove(); updateSplitSummary(); });
-    updateSplitSummary();
+    row.querySelector('.split-lbs').addEventListener('input', () => updateSplitSummary(bagId, proteinKey));
+    row.querySelector('.split-other-input').addEventListener('input', () => updateSplitSummary(bagId, proteinKey));
+    row.querySelector('.rm').addEventListener('click', () => { row.remove(); updateSplitSummary(bagId, proteinKey); recalc(); });
+    updateSplitSummary(bagId, proteinKey);
   }
-  splitAdd.addEventListener('click', addSplitRow);
 
-  function readSplit(){
+  function readSplitForBag(bagId, proteinKey){
+    const prefix = `bag${bagId}_${proteinKey}`;
+    const splitRows = document.getElementById(`${prefix}SplitRows`);
     return Array.from(splitRows.querySelectorAll('.split-row')).map(r => {
       const lbs = parseInt(r.querySelector('.split-lbs').value || '0', 10);
       const sp = r.querySelector('.mini-spice button.active');
@@ -764,15 +933,14 @@
       return { lbs, spice: sp ? sp.dataset.val : '', otherNote };
     }).filter(x => x.lbs > 0 && x.spice);
   }
-  function spiceLabel(v){
-    const map = { Mild: 'mild', Medium: 'medium', Spicy: 'spicy', XSpicy: 'xspicy', Other: 'other' };
-    return t(map[v]) || v;
-  }
-  function updateSplitSummary(){
-    const sum = document.getElementById('splitSummary');
-    if(!splitOn){ sum.textContent=''; sum.className='split-summary'; return; }
-    const target = parseInt(document.getElementById('crawfishLbs').value || '0', 10);
-    const parts = readSplit();
+
+  function updateSplitSummary(bagId, proteinKey){
+    const prefix = `bag${bagId}_${proteinKey}`;
+    const sum = document.getElementById(`${prefix}SplitSummary`);
+    const splitBox = document.getElementById(`${prefix}SplitBox`);
+    if(!splitBox.classList.contains('show')){ sum.textContent=''; sum.className='split-summary'; return; }
+    const target = parseInt(document.getElementById(`${prefix}Lbs`).value || '0', 10);
+    const parts = readSplitForBag(bagId, proteinKey);
     const total = parts.reduce((a,b) => a + b.lbs, 0);
     if(total === target && target > 0){
       sum.className = 'split-summary ok';
@@ -783,135 +951,201 @@
     }
   }
 
-  // ============= SAUCE =============
-  function onSauceChange(){
-    const qty = parseInt(document.getElementById('sauceBottleQty').value || '0', 10);
-    const box = document.getElementById('sauceSpice');
-    box.classList.toggle('show', qty > 0);
-    if(qty === 0){
-      box.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-      document.getElementById('sauceBottleSpice').value = '';
-    }
+  function spiceLabel(v){
+    const map = { Mild: 'mild', Medium: 'medium', Spicy: 'spicy', XSpicy: 'xspicy', Other: 'other' };
+    return t(map[v]) || v;
   }
-  document.querySelectorAll('#sauceSpice button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('#sauceSpice button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('sauceBottleSpice').value = btn.dataset.val;
-    });
-  });
-  document.getElementById('sauceBottleQty').addEventListener('input', onSauceChange);
 
-  // ============= PRICING =============
-  const PRICE = { crawfish:12, sausage:6, potatoPer2:1, corn:2, sauce:10 };
+  function removeBag(bagId){
+    bags = bags.filter(b => b.id !== bagId);
+    if(bags.length === 0) bags = [{ id: 0 }];
+    renderBags();
+    recalc();
+  }
+
+  document.getElementById('addBagBtn').addEventListener('click', () => {
+    bags.push({ id: nextBagId });
+    nextBagId++;
+    renderBags();
+    recalc();
+  });
+
+  const PRICE = { crawfish:12, shrimpHeadOn:16, sausage:6, potatoPer2:1, corn:2, sauce:10 };
+
   function recalc(){
-    const cf = Math.max(0, parseInt(document.getElementById('crawfishLbs').value || '0', 10));
-    const sg = Math.max(0, parseInt(document.getElementById('sausageLbs').value || '0', 10));
-    const po = Math.max(0, parseInt(document.getElementById('potatoes').value || '0', 10));
-    const co = Math.max(0, parseInt(document.getElementById('corn').value || '0', 10));
-    const sc = Math.max(0, parseInt(document.getElementById('sauceBottleQty').value || '0', 10));
-    const total = cf*PRICE.crawfish + sg*PRICE.sausage + Math.ceil(po/2)*PRICE.potatoPer2 + co*PRICE.corn + sc*PRICE.sauce;
-    document.getElementById('total').textContent = '$' + total;
-    const blocks = Math.floor(cf / 5);
-    const inc = document.getElementById('includes');
-    if(blocks > 0){
-      inc.classList.add('show');
-      inc.textContent = T[lang].includes(5*blocks, blocks, 2*blocks);
-    } else {
-      inc.classList.remove('show');
-    }
+    let orderTotal = 0;
+    bags.forEach(bag => {
+      let bagTotal = 0;
+      PROTEINS.forEach(p => {
+        const lbs = Math.max(0, parseInt(document.getElementById(`bag${bag.id}_${p.key}Lbs`).value || '0', 10));
+        bagTotal += lbs * PRICE[p.key];
+        if(p.includesSides && lbs > 0){
+          const inc = document.getElementById(`bag${bag.id}_${p.key}Includes`);
+          const blocks = Math.floor(lbs / 5);
+          if(blocks > 0){
+            inc.classList.add('show');
+            inc.textContent = T[lang].includes(5*blocks, blocks, 2*blocks);
+          } else {
+            inc.classList.remove('show');
+          }
+        }
+      });
+      const sg = Math.max(0, parseInt(document.getElementById(`bag${bag.id}SausageLbs`).value || '0', 10));
+      const po = Math.max(0, parseInt(document.getElementById(`bag${bag.id}Potatoes`).value || '0', 10));
+      const co = Math.max(0, parseInt(document.getElementById(`bag${bag.id}Corn`).value || '0', 10));
+      const sc = Math.max(0, parseInt(document.getElementById(`bag${bag.id}SauceQty`).value || '0', 10));
+      bagTotal += sg*PRICE.sausage + Math.ceil(po/2)*PRICE.potatoPer2 + co*PRICE.corn + sc*PRICE.sauce;
+      document.getElementById(`bag${bag.id}Subtotal`).textContent = `${t('bagSubtotal')}: $${bagTotal}`;
+      orderTotal += bagTotal;
+    });
+    document.getElementById('total').textContent = '$' + orderTotal;
+    document.getElementById('totalBagCount').textContent = bags.length;
   }
-  ['crawfishLbs','sausageLbs','potatoes','corn'].forEach(id => {
-    document.getElementById(id).addEventListener('input', recalc);
-  });
-  recalc();
-  applyLang(); // initial render
 
-  // ============= SUBMIT =============
+  function validateAndGetBags(){
+    const name = document.getElementById('customerName').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const pickupDate = document.getElementById('pickupDate').value;
+    const time = document.getElementById('pickupTime').value;
+    const err = document.getElementById('err');
+
+    if(!name || !phone){ err.textContent = t('errName'); err.classList.add('show'); return null; }
+    if(!pickupDate){ err.textContent = t('errDate'); err.classList.add('show'); return null; }
+    if(!time){ err.textContent = t('errTime'); err.classList.add('show'); return null; }
+
+    const validatedBags = [];
+    for(let bagIdx = 0; bagIdx < bags.length; bagIdx++){
+      const bag = bags[bagIdx];
+      const bagPayloads = {};
+      let hasValidProtein = false;
+
+      for(const p of PROTEINS){
+        const prefix = `bag${bag.id}_${p.key}`;
+        const lbs = Math.max(0, parseInt(document.getElementById(`${prefix}Lbs`).value || '0', 10));
+
+        if(lbs > 0){
+          hasValidProtein = true;
+          if(lbs < p.minLbs){
+            if(p.key === 'crawfish') err.textContent = t('errMinCrawfish');
+            else err.textContent = t('errMinShrimp');
+            err.classList.add('show');
+            return null;
+          }
+
+          let spiceLevel = document.getElementById(`${prefix}SpiceLevel`).value;
+          let spiceBreakdown = '';
+          let otherSpiceNote = document.getElementById(`${prefix}OtherSpiceNote`).value.trim();
+
+          const splitBox = document.getElementById(`${prefix}SplitBox`);
+          if(splitBox.classList.contains('show')){
+            const parts = readSplitForBag(bag.id, p.key);
+            const total = parts.reduce((a,b) => a + b.lbs, 0);
+            if(total !== lbs){
+              err.textContent = t('errSplit')(total, lbs);
+              err.classList.add('show');
+              return null;
+            }
+            const missingOther = parts.find(pt => pt.spice === 'Other' && !pt.otherNote);
+            if(missingOther){
+              err.textContent = t('errOther');
+              err.classList.add('show');
+              return null;
+            }
+            spiceLevel = 'Split';
+            spiceBreakdown = parts.map(pt =>
+              pt.spice === 'Other' && pt.otherNote
+                ? `${pt.lbs} lbs Other: ${pt.otherNote}`
+                : `${pt.lbs} lbs ${pt.spice}`
+            ).join(' + ');
+            const otherParts = parts.filter(pt => pt.spice === 'Other' && pt.otherNote).map(pt => pt.otherNote);
+            if(otherParts.length > 0) otherSpiceNote = otherParts.join(' | ');
+          } else if(spiceLevel === 'Other' && !otherSpiceNote){
+            err.textContent = t('errOther');
+            err.classList.add('show');
+            return null;
+          }
+
+          if(p.key === 'crawfish'){
+            bagPayloads.crawfishLbs = lbs;
+            bagPayloads.spiceLevel = spiceLevel;
+            bagPayloads.spiceBreakdown = spiceBreakdown;
+            bagPayloads.otherSpiceNote = otherSpiceNote;
+          } else if(p.key === 'shrimpHeadOn'){
+            bagPayloads.shrimpHeadOnLbs = lbs;
+            bagPayloads.shrimpSpiceLevel = spiceLevel;
+            bagPayloads.shrimpSpiceBreakdown = spiceBreakdown;
+            bagPayloads.shrimpOtherSpiceNote = otherSpiceNote;
+          }
+        }
+      }
+
+      if(!hasValidProtein){
+        err.textContent = t('errBagEmpty');
+        err.classList.add('show');
+        return null;
+      }
+
+      const sauceQty = Math.max(0, parseInt(document.getElementById(`bag${bag.id}SauceQty`).value || '0', 10));
+      const sauceSpice = document.getElementById(`bag${bag.id}SauceSpiceLevel`).value;
+      if(sauceQty > 0 && !sauceSpice){
+        err.textContent = t('errSauce');
+        err.classList.add('show');
+        return null;
+      }
+
+      const cf = Math.max(0, parseInt(document.getElementById(`bag${bag.id}_crawfishLbs`).value || '0', 10));
+      const sh = Math.max(0, parseInt(document.getElementById(`bag${bag.id}_shrimpHeadOnLbs`).value || '0', 10));
+      const sg = Math.max(0, parseInt(document.getElementById(`bag${bag.id}SausageLbs`).value || '0', 10));
+      const po = Math.max(0, parseInt(document.getElementById(`bag${bag.id}Potatoes`).value || '0', 10));
+      const co = Math.max(0, parseInt(document.getElementById(`bag${bag.id}Corn`).value || '0', 10));
+      const sc = sauceQty;
+      const bagTotal = cf*12 + sh*16 + sg*6 + Math.ceil(po/2)*1 + co*2 + sc*10;
+
+      const payload = {
+        customerName: name,
+        phone,
+        socialHandle: document.getElementById('socialHandle').value.trim(),
+        language: LANG_LABELS[lang],
+        pickupDate,
+        pickupTime: time,
+        bagFor: document.getElementById(`bag${bag.id}For`).value.trim(),
+        bagNum: String(bagIdx + 1),
+        bagTotal: String(bagTotal),
+        crawfishLbs: cf || 0,
+        spiceLevel: bagPayloads.spiceLevel || '',
+        spiceBreakdown: bagPayloads.spiceBreakdown || '',
+        otherSpiceNote: bagPayloads.otherSpiceNote || '',
+        shrimpHeadOnLbs: sh || 0,
+        shrimpSpiceLevel: bagPayloads.shrimpSpiceLevel || '',
+        shrimpSpiceBreakdown: bagPayloads.shrimpSpiceBreakdown || '',
+        shrimpOtherSpiceNote: bagPayloads.shrimpOtherSpiceNote || '',
+        sausageLbs: sg,
+        potatoes: po,
+        corn: co,
+        sauceBottle: sc > 0,
+        sauceBottleQty: sc,
+        sauceBottleSpice: sauceSpice,
+        notes: document.getElementById(`bag${bag.id}Notes`).value.trim(),
+        total: bagTotal,
+        paid: 0,
+        balance: bagTotal,
+        paymentStatus: "Unpaid",
+        orderStatus: "New",
+        orderSource: "Web Form",
+        labelPrinted: false
+      };
+      validatedBags.push(payload);
+    }
+    return validatedBags;
+  }
+
   document.getElementById('orderForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const err = document.getElementById('err');
     err.classList.remove('show');
 
-    const name = document.getElementById('customerName').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const socialHandle = document.getElementById('socialHandle').value.trim();
-    const pickupDate = document.getElementById('pickupDate').value;
-    const time = document.getElementById('pickupTime').value;
-    const cfLbs = parseInt(document.getElementById('crawfishLbs').value || '0', 10);
-
-    if(!name || !phone){ err.textContent = t('errName'); err.classList.add('show'); return; }
-    if(!pickupDate){ err.textContent = t('errDate'); err.classList.add('show'); return; }
-    if(!time){ err.textContent = t('errTime'); err.classList.add('show'); return; }
-    if(cfLbs > 0 && cfLbs < 3){ err.textContent = t('errMin'); err.classList.add('show'); return; }
-
-    let spiceLevel = document.getElementById('spiceLevel').value;
-    let spiceBreakdown = '';
-    let otherSpiceNote = document.getElementById('otherSpiceNote').value.trim();
-
-    if(splitOn){
-      const parts = readSplit();
-      const total = parts.reduce((a,b) => a + b.lbs, 0);
-      if(total !== cfLbs){
-        err.textContent = t('errSplit')(total, cfLbs);
-        err.classList.add('show'); return;
-      }
-      spiceLevel = 'Split';
-      // Validate: any row with Other must have its own note filled
-      const missingOther = parts.find(p => p.spice === 'Other' && !p.otherNote);
-      if(missingOther){
-        err.textContent = t('errOther'); err.classList.add('show'); return;
-      }
-      spiceBreakdown = parts.map(p =>
-        p.spice === 'Other' && p.otherNote
-          ? `${p.lbs} lbs Other: ${p.otherNote}`
-          : `${p.lbs} lbs ${p.spice}`
-      ).join(' + ');
-      // Aggregate per-row Other notes into the single otherSpiceNote field for Notion
-      const otherParts = parts.filter(p => p.spice === 'Other' && p.otherNote).map(p => p.otherNote);
-      if(otherParts.length > 0) otherSpiceNote = otherParts.join(' | ');
-    } else if(spiceLevel === 'Other' && !otherSpiceNote){
-      err.textContent = t('errOther'); err.classList.add('show'); return;
-    }
-
-    const sauceQty = parseInt(document.getElementById('sauceBottleQty').value || '0', 10);
-    const sauceSpice = document.getElementById('sauceBottleSpice').value;
-    if(sauceQty > 0 && !sauceSpice){
-      err.textContent = t('errSauce'); err.classList.add('show'); return;
-    }
-
-    const sg = parseInt(document.getElementById('sausageLbs').value || '0', 10);
-    const po = parseInt(document.getElementById('potatoes').value || '0', 10);
-    const co = parseInt(document.getElementById('corn').value || '0', 10);
-    const total = cfLbs*12 + sg*6 + Math.ceil(po/2)*1 + co*2 + sauceQty*10;
-
-    const payload = {
-      customerName: name,
-      phone,
-      socialHandle,
-      language: LANG_LABELS[lang],   // "English" / "Tiếng Việt" / "Español"
-      pickupDate,
-      pickupTime: time,
-      crawfishLbs: cfLbs,
-      spiceLevel,
-      spiceBreakdown,
-      otherSpiceNote,
-      shrimpLbs: 0,
-      sausageLbs: sg,
-      potatoes: po,
-      corn: co,
-      sauceBottle: sauceQty > 0,
-      sauceBottleQty: sauceQty,
-      sauceBottleSpice: sauceSpice,
-      notes: document.getElementById('notes').value.trim(),
-      total,
-      paid: 0,
-      balance: total,
-      paymentStatus: "Unpaid",
-      orderStatus: "New",
-      orderSource: "Web Form",
-      labelPrinted: false
-    };
+    const bagPayloads = validateAndGetBags();
+    if(!bagPayloads) return;
 
     const btn = document.getElementById('submitBtn');
     btn.disabled = true; btn.textContent = t('sending');
@@ -920,13 +1154,15 @@
       if(!WEBHOOK_URL || WEBHOOK_URL === "YOUR_MAKE_WEBHOOK_URL_HERE"){
         throw new Error("Webhook URL not configured yet.");
       }
-      const res = await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type':'application/json' },
-        body: JSON.stringify(payload),
-      });
-      if(!res.ok) throw new Error('Server returned ' + res.status);
-      document.getElementById('orderForm').querySelectorAll('.field, .total-card, .submit, .note').forEach(el => el.style.display='none');
+      for(const payload of bagPayloads){
+        const res = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type':'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if(!res.ok) throw new Error('Server returned ' + res.status);
+      }
+      document.getElementById('orderForm').querySelectorAll('.field, .order-info-card, .bags-container, .add-bag-btn, .order-total-card, .submit, .note').forEach(el => el.style.display='none');
       document.getElementById('success').classList.add('show');
     } catch(ex){
       err.textContent = t('errSend') + ex.message;
@@ -934,6 +1170,10 @@
       btn.disabled = false; btn.textContent = t('submit');
     }
   });
+
+  applyLang();
+  renderBags();
+  recalc();
 </script>
 </body>
 </html>
