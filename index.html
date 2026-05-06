@@ -809,8 +809,9 @@
 
   function attachBagEventListeners(bagId){
     const prefix = `bag${bagId}_`;
+    const bagPrefix = `bag${bagId}`;
 
-    document.querySelectorAll(`[data-target^="${prefix}"]`).forEach(btn => {
+    document.querySelectorAll(`[data-target^="${bagPrefix}"]`).forEach(btn => {
       if(!btn.classList.contains('qty-attached')){
         btn.classList.add('qty-attached');
         btn.addEventListener('click', () => {
