@@ -703,12 +703,30 @@
     `;
   }
 
+  function renderBagCard(bag, bagNum){
+    const card = document.createElement('div');
+    card.className = 'bag-card';
+    card.dataset.bagId = bag.id;
+    return card;
+  }
+
   function renderBags(){
     const container = document.getElementById('bagsContainer');
+    const existingCards = new Map();
+    container.querySelectorAll('.bag-card').forEach(c => existingCards.set(c.dataset.bagId, c));
+
     container.innerHTML = '';
 
     bags.forEach((bag, idx) => {
       const bagNum = idx + 1;
+      const existing = existingCards.get(String(bag.id));
+      if(existing){
+        existing.querySelector('.bag-card-title').textContent = `🦞 BAG ${bagNum}`;
+        if(bags.length > 1) existing.querySelector('.bag-card-rm').classList.add('show');
+        else existing.querySelector('.bag-card-rm').classList.remove('show');
+        container.appendChild(existing);
+        return;
+      }
       const card = document.createElement('div');
       card.className = 'bag-card';
       card.dataset.bagId = bag.id;
