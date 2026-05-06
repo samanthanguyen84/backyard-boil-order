@@ -68,7 +68,7 @@
   input:focus, select:focus, textarea:focus{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(245,197,24,0.18);}
   textarea{min-height:70px;resize:vertical}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
- 
+
   .order-info-card{
     background:var(--wood);
     border:1px solid rgba(255,255,255,0.08);
@@ -78,7 +78,7 @@
   }
   .order-info-card .field{margin-bottom:14px}
   .order-info-card .field:last-child{margin-bottom:0}
- 
+
   .cal{background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;}
   .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
   .cal-head .month{font-weight:800;font-size:16px;color:var(--cream);}
@@ -108,7 +108,7 @@
   .day.sat.past-sat .craw{opacity:0.3}
   .cal-pick{text-align:center;font-size:13px;color:#ffd776;margin-top:8px;padding:8px;background:rgba(245,197,24,0.08);border-radius:8px;border:1px dashed rgba(245,197,24,0.35);}
   .cal-pick.empty{color:var(--muted);background:transparent;border:1px dashed rgba(255,255,255,0.1);}
- 
+
   .spice{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:4px}
   .spice button{
     border:1px solid rgba(255,255,255,0.1);background:var(--wood);color:var(--cream);
@@ -120,7 +120,7 @@
   .spice button[data-val="Spicy"].active{background:#c4242b;border-color:#c4242b}
   .spice button[data-val="XSpicy"].active{background:#7b0c11;border-color:#7b0c11}
   .spice button[data-val="Other"].active{background:#6b4ea3;border-color:#6b4ea3}
- 
+
   .split-toggle{
     display:flex;align-items:center;justify-content:space-between;gap:10px;
     padding:10px 12px;background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:10px;margin-top:8px;
@@ -131,7 +131,7 @@
     padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;
   }
   .split-toggle button.on{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
- 
+
   .split-box{margin-top:10px;display:none}
   .split-box.show{display:block}
   .split-row{
@@ -167,18 +167,18 @@
   .split-summary{font-size:12px;margin-top:6px;padding:8px;border-radius:8px;text-align:center}
   .split-summary.ok{color:#98e09e;background:rgba(47,122,58,0.12);border:1px solid rgba(47,122,58,0.3)}
   .split-summary.bad{color:#ffb4b4;background:rgba(196,36,43,0.1);border:1px solid rgba(196,36,43,0.3)}
- 
+
   .other-note{margin-top:8px;display:none}
   .other-note.show{display:block}
   .other-note input{padding:10px 12px;font-size:14px}
- 
+
   .qty{display:flex;align-items:center;gap:10px}
   .qty button{
     width:38px;height:38px;border-radius:10px;border:1px solid rgba(255,255,255,0.14);
     background:var(--wood);color:var(--cream);font-size:20px;font-weight:700;cursor:pointer;
   }
   .qty input{flex:1;text-align:center}
- 
+
   .addons{display:grid;gap:10px}
   .addon{
     display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;
@@ -186,7 +186,7 @@
   }
   .addon .name{font-size:14px}
   .addon .price{font-size:12px;color:var(--muted);display:block}
- 
+
   .sauce-box{padding:12px;background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:12px;}
   .sauce-head{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;}
   .sauce-spice{display:none;margin-top:10px;grid-template-columns:repeat(3,1fr);gap:6px}
@@ -198,10 +198,10 @@
   .sauce-spice button[data-val="Mild"].active{background:#2f7a3a;border-color:#2f7a3a}
   .sauce-spice button[data-val="Medium"].active{background:#d59f2a;border-color:#d59f2a;color:#1a0d08}
   .sauce-spice button[data-val="Spicy"].active{background:#c4242b;border-color:#c4242b}
- 
+
   .includes{font-size:12px;color:#ffd776;margin-top:6px;display:none;padding:8px 10px;background:rgba(245,197,24,0.08);border-radius:8px;border:1px dashed rgba(245,197,24,0.35);}
   .includes.show{display:block}
- 
+
   .bags-container{margin:20px 0}
   .bag-card{
     background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px;margin-bottom:16px;
@@ -216,24 +216,24 @@
   }
   .bag-card-rm.show{display:block}
   .bag-card-rm:hover{background:rgba(196,36,43,0.15)}
- 
+
   .bag-for{margin-bottom:12px}
   .bag-for input{padding:10px 12px;font-size:14px}
- 
+
   .protein-section{margin-top:12px;margin-bottom:16px}
   .protein-label{font-size:13px;font-weight:600;color:#f0e2c6;margin-bottom:8px;display:block}
- 
+
   .bag-subtotal{
     font-size:13px;color:#ffd776;padding:10px;background:rgba(245,197,24,0.08);border-radius:8px;border:1px dashed rgba(245,197,24,0.35);
     text-align:right;font-weight:700;
   }
- 
+
   .add-bag-btn{
     width:100%;padding:12px;border-radius:10px;border:1px dashed rgba(255,255,255,0.2);
     background:transparent;color:#f0e2c6;cursor:pointer;font-size:14px;font-weight:700;margin-bottom:20px;
   }
   .add-bag-btn:hover{background:rgba(255,255,255,0.04)}
- 
+
   .order-total-card{
     background:linear-gradient(180deg,#1a0d08,#2a1810);
     border:1px solid rgba(245,197,24,0.2);border-radius:14px;padding:16px 18px;
@@ -242,7 +242,7 @@
   .order-total-card .label{font-size:12px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
   .order-total-card .row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-bottom:8px}
   .order-total-card .val{font-size:28px;font-weight:800;color:var(--yellow);text-align:right}
- 
+
   button.submit{
     width:100%;background:var(--red);color:#fff;border:none;border-radius:12px;
     padding:16px;font-size:17px;font-weight:800;letter-spacing:0.03em;cursor:pointer;
@@ -269,25 +269,25 @@
     <h1><span class="lobster">🦞</span> Backyard Boil</h1>
     <p data-i18n="tagline">Order ahead. Skip the line. Grab &amp; geaux.</p>
   </header>
- 
+
   <form id="orderForm" novalidate>
     <div class="order-info-card">
       <div class="field">
         <label for="customerName" data-i18n="yourName">Your Name</label>
         <input id="customerName" name="customerName" type="text" required />
       </div>
- 
+
       <div class="field">
         <label for="phone" data-i18n="phone">Phone Number</label>
         <input id="phone" name="phone" type="tel" placeholder="(504) 555-1212" required />
       </div>
- 
+
       <div class="field">
         <label for="socialHandle" data-i18n="social">Facebook or Instagram Handle (optional)</label>
         <input id="socialHandle" name="socialHandle" type="text" data-i18n-placeholder="socialPh" placeholder="@yourhandle — so we know you" />
         <div class="field-hint" data-i18n="socialHint">So Viet knows who you are from Facebook or Instagram.</div>
       </div>
- 
+
       <div class="field">
         <label data-i18n="pickupDay">Pickup Day — Saturdays Only 🦞</label>
         <div class="cal">
@@ -302,7 +302,7 @@
         <div class="cal-pick empty" id="calPick" data-i18n="pickupHint">Tap a Saturday to pick your pickup day</div>
         <input type="hidden" id="pickupDate" name="pickupDate" value="" />
       </div>
- 
+
       <div class="field">
         <label for="pickupTime" data-i18n="pickupTime">Pickup Time</label>
         <select id="pickupTime" name="pickupTime" required>
@@ -310,11 +310,11 @@
         </select>
       </div>
     </div>
- 
+
     <div class="bags-container" id="bagsContainer"></div>
- 
+
     <button type="button" class="add-bag-btn" id="addBagBtn" data-i18n="addBag">+ Add another bag</button>
- 
+
     <div class="order-total-card">
       <div class="row">
         <div class="label" data-i18n="totalBags">Total bags</div>
@@ -326,27 +326,27 @@
       </div>
       <div style="font-size:12px;color:var(--muted);margin-top:2px" data-i18n="totalHint">Owner confirms via text after payment</div>
     </div>
- 
+
     <button class="submit" type="submit" id="submitBtn" data-i18n="submit">Send Order Request</button>
     <div class="error" id="err"></div>
     <div class="note" data-i18n="submitNote">We'll text you back to confirm payment and your pickup time.</div>
- 
+
     <div class="success" id="success">
       <h3 style="margin:0 0 6px" data-i18n="successTitle">🎉 Order received!</h3>
       <p style="margin:0;color:#d8e9d8" data-i18n="successBody">We'll text you to confirm payment. Come at your pickup time — your label will already be on the box.</p>
     </div>
   </form>
 </div>
- 
+
 <script>
   const WEBHOOK_URL = "https://hook.us2.make.com/tofyuzccf4v8ehsauidvy8uk7p7dqibt";
- 
+
   const PROTEINS = [
     { key: 'crawfish', label: 'crawfish', price: 12, minLbs: 3, includesSides: true },
     { key: 'shrimpHeadOn', label: 'shrimpHeadOn', price: 16, minLbs: 1, includesSides: false },
     { key: 'shrimpHeadless', label: 'shrimpHeadless', price: 18, minLbs: 1, includesSides: false },
   ];
- 
+
   const T = {
     en: {
       eyebrow: "Pickup Orders",
@@ -361,7 +361,7 @@
       pickupLabel: "Pickup",
       pickupTime: "Pickup Time",
       chooseTime: "Choose a time…",
-      crawfish: "Crawfish (lbs) — $12/lb · 3 lb minimum",
+      crawfish: "Crawfish (lbs) — $12/lb · 3 lb min total per order",
       shrimpHeadOn: "Head On Shrimp (lbs) — $16/lb · 1 lb minimum when ordering",
       shrimpHeadless: "Headless Shrimp (lbs) — $18/lb · 1 lb minimum when ordering",
       bagFor: "Bag For (optional)",
@@ -392,8 +392,9 @@
       errDate: "Please pick a Saturday for pickup.",
       errTime: "Please pick a pickup time.",
       errMinCrawfish: "Crawfish has a 3 lb minimum.",
+      errMinCrawfishOrder: (t) => `Order needs at least 3 lbs total of crawfish (currently ${t} lb${t===1?'':'s'} across all bags).`,
       errMinShrimp: "Shrimp has a 1 lb minimum (when ordering).",
-      errBagEmpty: "Each bag must have at least 3 lbs crawfish or 1 lb of any shrimp.",
+      errBagEmpty: "Each bag must have crawfish or shrimp (any amount).",
       errSplit: (t, tgt) => `Split spice must equal ${tgt} lbs (currently ${t}).`,
       errOther: "You selected \"Other\" — please describe it in the note.",
       errSauce: "Please pick a sauce spice level (Mild/Medium/Spicy).",
@@ -417,7 +418,7 @@
       pickupLabel: "Ngày lấy",
       pickupTime: "Giờ Lấy",
       chooseTime: "Chọn giờ…",
-      crawfish: "Tôm hùm đất (lbs) — $12/lb · tối thiểu 3 lb",
+      crawfish: "Tôm hùm đất (lbs) — $12/lb · tối thiểu 3 lb cho cả đơn",
       shrimpHeadOn: "Tôm Đầu Nguyên (lbs) — $16/lb · tối thiểu 1 lb khi đặt",
       shrimpHeadless: "Tôm Bóc Đầu (lbs) — $18/lb · tối thiểu 1 lb khi đặt",
       bagFor: "Túi Cho (không bắt buộc)",
@@ -448,8 +449,9 @@
       errDate: "Vui lòng chọn một Thứ Bảy để lấy.",
       errTime: "Vui lòng chọn giờ lấy.",
       errMinCrawfish: "Tôm hùm đất tối thiểu 3 lb.",
+      errMinCrawfishOrder: (t) => `Cả đơn cần tối thiểu 3 lb tôm hùm (hiện có ${t} lb).`,
       errMinShrimp: "Tôm tối thiểu 1 lb (khi đặt).",
-      errBagEmpty: "Mỗi túi phải có ít nhất 3 lb tôm hùm hoặc 1 lb tôm bất kỳ loại.",
+      errBagEmpty: "Mỗi túi phải có tôm hùm hoặc tôm (bất kỳ số lượng nào).",
       errSplit: (t, tgt) => `Chia độ cay phải bằng ${tgt} lbs (hiện là ${t}).`,
       errOther: "Bạn đã chọn \"Khác\" — vui lòng ghi chú.",
       errSauce: "Vui lòng chọn độ cay nước sốt (Nhẹ/Vừa/Cay).",
@@ -473,7 +475,7 @@
       pickupLabel: "Recogida",
       pickupTime: "Hora de Recogida",
       chooseTime: "Elige una hora…",
-      crawfish: "Cangrejo de Río (lbs) — $12/lb · mínimo 3 lb",
+      crawfish: "Cangrejo de Río (lbs) — $12/lb · mínimo 3 lb por pedido",
       shrimpHeadOn: "Camarón Cabeza Entera (lbs) — $16/lb · mínimo 1 lb al ordenar",
       shrimpHeadless: "Camarón Sin Cabeza (lbs) — $18/lb · mínimo 1 lb al ordenar",
       bagFor: "Bolsa Para (opcional)",
@@ -504,8 +506,9 @@
       errDate: "Por favor elige un sábado para recoger.",
       errTime: "Por favor elige una hora de recogida.",
       errMinCrawfish: "Mínimo 3 lb de cangrejo.",
+      errMinCrawfishOrder: (t) => `El pedido necesita al menos 3 lb de cangrejo en total (actualmente ${t} lb).`,
       errMinShrimp: "Mínimo 1 lb de camarón (al ordenar).",
-      errBagEmpty: "Cada bolsa debe tener al menos 3 lb de cangrejo o 1 lb de camarón.",
+      errBagEmpty: "Cada bolsa debe tener cangrejo o camarón (cualquier cantidad).",
       errSplit: (t, tgt) => `La división debe igualar ${tgt} lbs (actualmente ${t}).`,
       errOther: "Elegiste \"Otro\" — por favor describe en la nota.",
       errSauce: "Elige un nivel de picante (Suave/Medio/Picante).",
@@ -519,9 +522,9 @@
   };
   const LANG_LABELS = { en: "English", vi: "Tiếng Việt", es: "Español" };
   let lang = "en";
- 
+
   function t(key){ return T[lang][key]; }
- 
+
   function applyLang(){
     document.documentElement.lang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -548,16 +551,16 @@
     renderBags();
     recalc();
   }
- 
+
   document.querySelectorAll('.lang-bar button').forEach(b => {
     b.addEventListener('click', () => { lang = b.dataset.lang; applyLang(); });
   });
- 
+
   const today = new Date(); today.setHours(0,0,0,0);
   let viewYear = today.getFullYear();
   let viewMonth = today.getMonth();
   let selectedDate = null;
- 
+
   function fmt(d){
     return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   }
@@ -566,7 +569,7 @@
     const dt = new Date(y, m-1, d);
     return dt.toLocaleDateString(T[lang].locale,{weekday:'long', month:'long', day:'numeric'});
   }
- 
+
   function renderCal(){
     document.getElementById('calMonth').textContent = `${t('months')[viewMonth]} ${viewYear}`;
     const first = new Date(viewYear, viewMonth, 1);
@@ -575,7 +578,7 @@
     const prevDays = new Date(viewYear, viewMonth, 0).getDate();
     const wrap = document.getElementById('calDays');
     wrap.innerHTML = '';
- 
+
     for(let i = firstDow - 1; i >= 0; i--){
       const d = document.createElement('div');
       d.className = 'day muted';
@@ -608,7 +611,7 @@
     }
     const prevBtn = document.getElementById('calPrev');
     prevBtn.disabled = (viewYear === today.getFullYear() && viewMonth === today.getMonth());
- 
+
     const pick = document.getElementById('calPick');
     if(selectedDate){
       pick.classList.remove('empty');
@@ -618,13 +621,13 @@
       pick.textContent = t('pickupHint');
     }
   }
- 
+
   function selectDate(ymd){
     selectedDate = ymd;
     document.getElementById('pickupDate').value = ymd;
     renderCal();
   }
- 
+
   document.getElementById('calPrev').addEventListener('click', () => {
     if(viewYear === today.getFullYear() && viewMonth === today.getMonth()) return;
     viewMonth--;
@@ -636,7 +639,7 @@
     if(viewMonth > 11){ viewMonth = 0; viewYear++; }
     renderCal();
   });
- 
+
   (function buildTimes(){
     const sel = document.getElementById('pickupTime');
     const start = 11 * 60, end = 19 * 60;
@@ -652,14 +655,14 @@
       sel.appendChild(opt);
     }
   })();
- 
+
   let bags = [{ id: 0 }];
   let nextBagId = 1;
- 
+
   function getBag(bagId){
     return bags.find(b => b.id === bagId);
   }
- 
+
   function addProteinSectionHtml(bagId, proteinKey, label){
     const prefix = `bag${bagId}_${proteinKey}`;
     return `
@@ -671,7 +674,7 @@
           <button type="button" data-act="inc" data-target="${prefix}Lbs">+</button>
         </div>
         <div id="${prefix}Includes" class="includes"></div>
- 
+
         <div style="margin-top:8px">
           <label style="margin-bottom:6px" data-i18n="spiceLevel">${t('spiceLevel')}</label>
           <div class="spice" id="${prefix}Spice">
@@ -685,7 +688,7 @@
           <div class="other-note" id="${prefix}OtherNote">
             <input type="text" id="${prefix}OtherSpiceNote" data-i18n-placeholder="otherPh" placeholder="${t('otherPh')}" />
           </div>
- 
+
           <div class="split-toggle">
             <span data-i18n="splitPrompt">${t('splitPrompt')}</span>
             <button type="button" id="${prefix}SplitBtn" data-i18n="split">${t('split')}</button>
@@ -699,33 +702,33 @@
       </div>
     `;
   }
- 
+
   function renderBags(){
     const container = document.getElementById('bagsContainer');
     container.innerHTML = '';
- 
+
     bags.forEach((bag, idx) => {
       const bagNum = idx + 1;
       const card = document.createElement('div');
       card.className = 'bag-card';
       card.dataset.bagId = bag.id;
- 
+
       let html = `
         <div class="bag-card-header">
           <div class="bag-card-title">🦞 BAG ${bagNum}</div>
           <button type="button" class="bag-card-rm" data-bag-id="${bag.id}" aria-label="Remove bag">×</button>
         </div>
- 
+
         <div class="bag-for">
           <label data-i18n="bagFor">${t('bagFor')}</label>
           <input type="text" id="bag${bag.id}For" data-i18n-placeholder="bagForPh" placeholder="${t('bagForPh')}" />
         </div>
       `;
- 
+
       PROTEINS.forEach(p => {
         html += addProteinSectionHtml(bag.id, p.key, p.label);
       });
- 
+
       html += `
         <div style="margin-top:16px">
           <label style="margin-bottom:8px" data-i18n="addons">${t('addons')}</label>
@@ -763,7 +766,7 @@
                 <button type="button" data-act="inc" data-target="bag${bag.id}Corn">+</button>
               </div>
             </div>
- 
+
             <div class="sauce-box">
               <div class="sauce-head">
                 <div>
@@ -785,28 +788,28 @@
             </div>
           </div>
         </div>
- 
+
         <div style="margin-top:16px">
           <label data-i18n="notes">${t('notes')}</label>
           <textarea id="bag${bag.id}Notes" data-i18n-placeholder="notesPh" placeholder="${t('notesPh')}"></textarea>
         </div>
- 
+
         <div class="bag-subtotal" id="bag${bag.id}Subtotal" data-i18n="bagSubtotal">${t('bagSubtotal')}: $0</div>
       `;
- 
+
       card.innerHTML = html;
       container.appendChild(card);
- 
+
       if(bags.length > 1) card.querySelector('.bag-card-rm').classList.add('show');
       card.querySelector('.bag-card-rm').addEventListener('click', () => removeBag(bag.id));
- 
+
       attachBagEventListeners(bag.id);
     });
   }
- 
+
   function attachBagEventListeners(bagId){
     const prefix = `bag${bagId}_`;
- 
+
     document.querySelectorAll(`[data-target^="${prefix}"]`).forEach(btn => {
       if(!btn.classList.contains('qty-attached')){
         btn.classList.add('qty-attached');
@@ -816,7 +819,7 @@
           if(btn.dataset.act === 'inc') v++;
           else v = Math.max(0, v - 1);
           target.value = v;
- 
+
           if(btn.dataset.target.includes('SauceQty')){
             const sauceSpiceDiv = document.getElementById(`bag${bagId}SauceSpice`);
             const qty = v;
@@ -826,18 +829,18 @@
               document.getElementById(`bag${bagId}SauceSpiceLevel`).value = '';
             }
           }
- 
+
           PROTEINS.forEach(p => {
             if(btn.dataset.target.includes(`_${p.key}Lbs`)){
               updateSplitSummary(bagId, p.key);
             }
           });
- 
+
           recalc();
         });
       }
     });
- 
+
     PROTEINS.forEach(p => {
       const spiceDiv = document.getElementById(`${prefix}${p.key}Spice`);
       if(spiceDiv && !spiceDiv.classList.contains('spice-attached')){
@@ -853,7 +856,7 @@
           });
         });
       }
- 
+
       const splitBtn = document.getElementById(`${prefix}${p.key}SplitBtn`);
       if(splitBtn && !splitBtn.classList.contains('split-btn-attached')){
         splitBtn.classList.add('split-btn-attached');
@@ -872,14 +875,14 @@
           updateSplitSummary(bagId, p.key);
         });
       }
- 
+
       const splitAdd = document.getElementById(`${prefix}${p.key}SplitAdd`);
       if(splitAdd && !splitAdd.classList.contains('split-add-attached')){
         splitAdd.classList.add('split-add-attached');
         splitAdd.addEventListener('click', () => addSplitRowForBag(bagId, p.key));
       }
     });
- 
+
     const sauceSpiceDiv = document.getElementById(`bag${bagId}SauceSpice`);
     if(sauceSpiceDiv && !sauceSpiceDiv.classList.contains('sauce-spice-attached')){
       sauceSpiceDiv.classList.add('sauce-spice-attached');
@@ -892,7 +895,7 @@
       });
     }
   }
- 
+
   function addSplitRowForBag(bagId, proteinKey){
     const prefix = `bag${bagId}_${proteinKey}`;
     const splitRows = document.getElementById(`${prefix}SplitRows`);
@@ -926,7 +929,7 @@
     row.querySelector('.rm').addEventListener('click', () => { row.remove(); updateSplitSummary(bagId, proteinKey); recalc(); });
     updateSplitSummary(bagId, proteinKey);
   }
- 
+
   function readSplitForBag(bagId, proteinKey){
     const prefix = `bag${bagId}_${proteinKey}`;
     const splitRows = document.getElementById(`${prefix}SplitRows`);
@@ -937,7 +940,7 @@
       return { lbs, spice: sp ? sp.dataset.val : '', otherNote };
     }).filter(x => x.lbs > 0 && x.spice);
   }
- 
+
   function updateSplitSummary(bagId, proteinKey){
     const prefix = `bag${bagId}_${proteinKey}`;
     const sum = document.getElementById(`${prefix}SplitSummary`);
@@ -954,28 +957,28 @@
       sum.textContent = t('splitTotal')(total, target);
     }
   }
- 
+
   function spiceLabel(v){
     const map = { Mild: 'mild', Medium: 'medium', Spicy: 'spicy', XSpicy: 'xspicy', Other: 'other' };
     return t(map[v]) || v;
   }
- 
+
   function removeBag(bagId){
     bags = bags.filter(b => b.id !== bagId);
     if(bags.length === 0) bags = [{ id: 0 }];
     renderBags();
     recalc();
   }
- 
+
   document.getElementById('addBagBtn').addEventListener('click', () => {
     bags.push({ id: nextBagId });
     nextBagId++;
     renderBags();
     recalc();
   });
- 
+
   const PRICE = { crawfish:12, shrimpHeadOn:16, shrimpHeadless:18, sausage:6, potatoPer2:1, corn:2, sauce:10 };
- 
+
   function recalc(){
     let orderTotal = 0;
     bags.forEach(bag => {
@@ -1005,41 +1008,42 @@
     document.getElementById('total').textContent = '$' + orderTotal;
     document.getElementById('totalBagCount').textContent = bags.length;
   }
- 
+
   function validateAndGetBags(){
     const name = document.getElementById('customerName').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const pickupDate = document.getElementById('pickupDate').value;
     const time = document.getElementById('pickupTime').value;
     const err = document.getElementById('err');
- 
+
     if(!name || !phone){ err.textContent = t('errName'); err.classList.add('show'); return null; }
     if(!pickupDate){ err.textContent = t('errDate'); err.classList.add('show'); return null; }
     if(!time){ err.textContent = t('errTime'); err.classList.add('show'); return null; }
- 
+
     const validatedBags = [];
+    let orderTotalCrawfish = 0;
     for(let bagIdx = 0; bagIdx < bags.length; bagIdx++){
       const bag = bags[bagIdx];
       const bagPayloads = {};
       let hasValidProtein = false;
- 
+
       for(const p of PROTEINS){
         const prefix = `bag${bag.id}_${p.key}`;
         const lbs = Math.max(0, parseInt(document.getElementById(`${prefix}Lbs`).value || '0', 10));
- 
+
         if(lbs > 0){
           hasValidProtein = true;
-          if(lbs < p.minLbs){
-            if(p.key === 'crawfish') err.textContent = t('errMinCrawfish');
-            else err.textContent = t('errMinShrimp');
+          if(p.key === 'crawfish') orderTotalCrawfish += lbs;
+          if(p.key !== 'crawfish' && lbs < p.minLbs){
+            err.textContent = t('errMinShrimp');
             err.classList.add('show');
             return null;
           }
- 
+
           let spiceLevel = document.getElementById(`${prefix}SpiceLevel`).value;
           let spiceBreakdown = '';
           let otherSpiceNote = document.getElementById(`${prefix}OtherSpiceNote`).value.trim();
- 
+
           const splitBox = document.getElementById(`${prefix}SplitBox`);
           if(splitBox.classList.contains('show')){
             const parts = readSplitForBag(bag.id, p.key);
@@ -1068,7 +1072,7 @@
             err.classList.add('show');
             return null;
           }
- 
+
           if(p.key === 'crawfish'){
             bagPayloads.crawfishLbs = lbs;
             bagPayloads.spiceLevel = spiceLevel;
@@ -1089,13 +1093,13 @@
           }
         }
       }
- 
+
       if(!hasValidProtein){
         err.textContent = t('errBagEmpty');
         err.classList.add('show');
         return null;
       }
- 
+
       const sauceQty = Math.max(0, parseInt(document.getElementById(`bag${bag.id}SauceQty`).value || '0', 10));
       const sauceSpice = document.getElementById(`bag${bag.id}SauceSpiceLevel`).value;
       if(sauceQty > 0 && !sauceSpice){
@@ -1103,7 +1107,7 @@
         err.classList.add('show');
         return null;
       }
- 
+
       const cf = Math.max(0, parseInt(document.getElementById(`bag${bag.id}_crawfishLbs`).value || '0', 10));
       const sh = Math.max(0, parseInt(document.getElementById(`bag${bag.id}_shrimpHeadOnLbs`).value || '0', 10));
       const shl = Math.max(0, parseInt(document.getElementById(`bag${bag.id}_shrimpHeadlessLbs`).value || '0', 10));
@@ -1112,7 +1116,7 @@
       const co = Math.max(0, parseInt(document.getElementById(`bag${bag.id}Corn`).value || '0', 10));
       const sc = sauceQty;
       const bagTotal = cf*12 + sh*16 + shl*18 + sg*6 + Math.ceil(po/2)*1 + co*2 + sc*10;
- 
+
       const payload = {
         customerName: name,
         phone,
@@ -1150,20 +1154,27 @@
       };
       validatedBags.push(payload);
     }
+
+    if(orderTotalCrawfish > 0 && orderTotalCrawfish < 3){
+      err.textContent = t('errMinCrawfishOrder')(orderTotalCrawfish);
+      err.classList.add('show');
+      return null;
+    }
+
     return validatedBags;
   }
- 
+
   document.getElementById('orderForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const err = document.getElementById('err');
     err.classList.remove('show');
- 
+
     const bagPayloads = validateAndGetBags();
     if(!bagPayloads) return;
- 
+
     const btn = document.getElementById('submitBtn');
     btn.disabled = true; btn.textContent = t('sending');
- 
+
     try {
       if(!WEBHOOK_URL || WEBHOOK_URL === "YOUR_MAKE_WEBHOOK_URL_HERE"){
         throw new Error("Webhook URL not configured yet.");
@@ -1184,11 +1195,10 @@
       btn.disabled = false; btn.textContent = t('submit');
     }
   });
- 
+
   applyLang();
   renderBags();
   recalc();
 </script>
 </body>
 </html>
- 
