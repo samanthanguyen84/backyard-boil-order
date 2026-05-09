@@ -205,14 +205,32 @@
   .bags-container{margin:20px 0}
   .bag-card{
     background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px;margin-bottom:16px;
+    transition:padding .15s;
   }
+  .bag-card.collapsed{padding:14px 16px;cursor:pointer}
+  .bag-card.collapsed:hover{border-color:rgba(245,197,24,0.35)}
   .bag-card-header{
-    display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;
+    display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;cursor:pointer;
+    user-select:none;
   }
-  .bag-card-title{font-size:16px;font-weight:700;color:var(--cream)}
+  .bag-card.collapsed .bag-card-header{margin-bottom:0}
+  .bag-card-title-wrap{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+  .bag-card-chevron{
+    font-size:14px;color:var(--muted);transition:transform 0.2s;flex-shrink:0;
+  }
+  .bag-card.collapsed .bag-card-chevron{transform:rotate(-90deg)}
+  .bag-card-title{font-size:16px;font-weight:700;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bag-card-summary{
+    font-size:13px;color:#ffd776;margin-left:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    font-weight:600;display:none;
+  }
+  .bag-card.collapsed .bag-card-summary{display:inline}
+  .bag-card-body{display:block}
+  .bag-card.collapsed .bag-card-body{display:none}
   .bag-card-rm{
     width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,0.14);
     background:transparent;color:#ffb4b4;font-size:18px;cursor:pointer;display:none;
+    flex-shrink:0;
   }
   .bag-card-rm.show{display:block}
   .bag-card-rm:hover{background:rgba(196,36,43,0.15)}
@@ -734,10 +752,15 @@
 
       let html = `
         <div class="bag-card-header">
-          <div class="bag-card-title">🦞 BAG ${bagNum}</div>
+          <div class="bag-card-title-wrap">
+            <span class="bag-card-chevron">▼</span>
+            <div class="bag-card-title">🦞 BAG ${bagNum}</div>
+            <span class="bag-card-summary" id="bag${bag.id}Summary"></span>
+          </div>
           <button type="button" class="bag-card-rm" data-bag-id="${bag.id}" aria-label="Remove bag">×</button>
         </div>
 
+        <div class="bag-card-body">
         <div class="bag-for">
           <label data-i18n="bagFor">${t('bagFor')}</label>
           <input type="text" id="bag${bag.id}For" data-i18n-placeholder="bagForPh" placeholder="${t('bagForPh')}" />
@@ -814,13 +837,21 @@
         </div>
 
         <div class="bag-subtotal" id="bag${bag.id}Subtotal" data-i18n="bagSubtotal">${t('bagSubtotal')}: $0</div>
+        </div>
       `;
 
       card.innerHTML = html;
       container.appendChild(card);
 
       if(bags.length > 1) card.querySelector('.bag-card-rm').classList.add('show');
-      card.querySelector('.bag-card-rm').addEventListener('click', () => removeBag(bag.id));
+      card.querySelector('.bag-card-rm').addEventListener('click', (e) => {
+        e.stopPropagation();
+        removeBag(bag.id);
+      });
+      card.querySelector('.bag-card-header').addEventListener('click', (e) => {
+        if(e.target.closest('.bag-card-rm')) return;
+        card.classList.toggle('collapsed');
+      });
 
       attachBagEventListeners(bag.id);
     });
@@ -829,6 +860,12 @@
   function attachBagEventListeners(bagId){
     const prefix = `bag${bagId}_`;
     const bagPrefix = `bag${bagId}`;
+
+    const bagForInput = document.getElementById(`${bagPrefix}For`);
+    if(bagForInput && !bagForInput.classList.contains('bagfor-attached')){
+      bagForInput.classList.add('bagfor-attached');
+      bagForInput.addEventListener('input', recalc);
+    }
 
     document.querySelectorAll(`[data-target^="${bagPrefix}"]`).forEach(btn => {
       if(!btn.classList.contains('qty-attached')){
@@ -991,6 +1028,7 @@
   }
 
   document.getElementById('addBagBtn').addEventListener('click', () => {
+    document.querySelectorAll('.bag-card').forEach(c => c.classList.add('collapsed'));
     bags.push({ id: nextBagId });
     nextBagId++;
     renderBags();
@@ -1003,9 +1041,14 @@
     let orderTotal = 0;
     bags.forEach(bag => {
       let bagTotal = 0;
+      let proteinSummary = [];
       PROTEINS.forEach(p => {
         const lbs = Math.max(0, parseInt(document.getElementById(`bag${bag.id}_${p.key}Lbs`).value || '0', 10));
         bagTotal += lbs * PRICE[p.key];
+        if(lbs > 0){
+          const shortLabel = p.key === 'crawfish' ? `${lbs}lb crawfish` : (p.key === 'shrimpHeadOn' ? `${lbs}lb head-on shrimp` : `${lbs}lb headless shrimp`);
+          proteinSummary.push(shortLabel);
+        }
         if(p.includesSides && lbs > 0){
           const inc = document.getElementById(`bag${bag.id}_${p.key}Includes`);
           const blocks = Math.floor(lbs / 5);
@@ -1024,6 +1067,16 @@
       bagTotal += sg*PRICE.sausage + Math.ceil(po/2)*PRICE.potatoPer2 + co*PRICE.corn + sc*PRICE.sauce;
       document.getElementById(`bag${bag.id}Subtotal`).textContent = `${t('bagSubtotal')}: $${bagTotal}`;
       orderTotal += bagTotal;
+
+      const summaryEl = document.getElementById(`bag${bag.id}Summary`);
+      if(summaryEl){
+        const bagFor = (document.getElementById(`bag${bag.id}For`).value || '').trim();
+        const parts = [];
+        if(bagFor) parts.push(`(${bagFor})`);
+        if(proteinSummary.length) parts.push(proteinSummary.join(' + '));
+        parts.push(`$${bagTotal}`);
+        summaryEl.textContent = '· ' + parts.join(' · ');
+      }
     });
     document.getElementById('total').textContent = '$' + orderTotal;
     document.getElementById('totalBagCount').textContent = bags.length;
