@@ -187,17 +187,18 @@
   .addon .name{font-size:14px}
   .addon .price{font-size:12px;color:var(--muted);display:block}
 
-  .sauce-box{padding:12px;background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:12px;}
-  .sauce-head{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;}
-  .sauce-spice{display:none;margin-top:10px;grid-template-columns:repeat(3,1fr);gap:6px}
-  .sauce-spice.show{display:grid}
-  .sauce-spice button{
-    border:1px solid rgba(255,255,255,0.1);background:var(--wood-dark);color:var(--cream);
-    padding:10px 4px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;
+  .sauce-section{padding:12px;background:var(--wood);border:1px solid rgba(255,255,255,0.08);border-radius:12px;display:grid;gap:10px;}
+  .sauce-section .sauce-header{display:flex;align-items:baseline;justify-content:space-between;}
+  .sauce-section .sauce-title{font-size:14px;font-weight:700;color:var(--cream)}
+  .sauce-section .sauce-price{font-size:12px;color:var(--muted)}
+  .sauce-row{
+    display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;
+    padding:8px 10px;background:var(--wood-dark);border-radius:10px;
   }
-  .sauce-spice button[data-val="Mild"].active{background:#2f7a3a;border-color:#2f7a3a}
-  .sauce-spice button[data-val="Medium"].active{background:#d59f2a;border-color:#d59f2a;color:#1a0d08}
-  .sauce-spice button[data-val="Spicy"].active{background:#c4242b;border-color:#c4242b}
+  .sauce-row .flavor{font-size:14px;font-weight:600}
+  .sauce-row[data-flavor="Mild"] .flavor{color:#7fc88f}
+  .sauce-row[data-flavor="Medium"] .flavor{color:#f0c25c}
+  .sauce-row[data-flavor="Spicy"] .flavor{color:#ea6a6f}
 
   .includes{font-size:12px;color:#ffd776;margin-top:6px;display:none;padding:8px 10px;background:rgba(245,197,24,0.08);border-radius:8px;border:1px dashed rgba(245,197,24,0.35);}
   .includes.show{display:block}
@@ -395,7 +396,8 @@
       sausage: "Sausage", sausagePrice: "$6 per lb",
       potatoes: "Potatoes", potatoesPrice: "$1 per 2 potatoes",
       corn: "Corn", cornPrice: "$2 each",
-      sauce: "Sauce Bottle", saucePrice: "$10 each",
+      sauce: "Bottle Sauce", saucePrice: "$10 each",
+      mildSauce: "Mild", mediumSauce: "Medium", spicySauce: "Spicy",
       notes: "Notes (optional)", notesPh: "Allergies, special requests…",
       bagSubtotal: "Bag subtotal",
       totalBags: "Total bags",
@@ -415,7 +417,6 @@
       errBagEmpty: "Each bag must have crawfish or shrimp (any amount).",
       errSplit: (t, tgt) => `Split spice must equal ${tgt} lbs (currently ${t}).`,
       errOther: "You selected \"Other\" — please describe it in the note.",
-      errSauce: "Please pick a sauce spice level (Mild/Medium/Spicy).",
       errSend: "Could not send order: ",
       includes: (s,p,c) => `Includes free: ${s} sausage slices · ${p} potato · ${c} × ¼ corn`,
       splitTotal: (t,tgt) => `Total split: ${t} lbs · must equal ${tgt} lbs`,
@@ -453,6 +454,7 @@
       potatoes: "Khoai Tây", potatoesPrice: "$1 cho 2 củ",
       corn: "Bắp", cornPrice: "$2 mỗi cái",
       sauce: "Chai Nước Sốt", saucePrice: "$10 mỗi chai",
+      mildSauce: "Nhẹ", mediumSauce: "Vừa", spicySauce: "Cay",
       notes: "Ghi Chú (không bắt buộc)", notesPh: "Dị ứng, yêu cầu đặc biệt…",
       bagSubtotal: "Tổng túi",
       totalBags: "Tổng số túi",
@@ -472,7 +474,6 @@
       errBagEmpty: "Mỗi túi phải có tôm hùm hoặc tôm (bất kỳ số lượng nào).",
       errSplit: (t, tgt) => `Chia độ cay phải bằng ${tgt} lbs (hiện là ${t}).`,
       errOther: "Bạn đã chọn \"Khác\" — vui lòng ghi chú.",
-      errSauce: "Vui lòng chọn độ cay nước sốt (Nhẹ/Vừa/Cay).",
       errSend: "Không thể gửi đơn: ",
       includes: (s,p,c) => `Miễn phí kèm theo: ${s} lát xúc xích · ${p} củ khoai · ${c} × ¼ bắp`,
       splitTotal: (t,tgt) => `Tổng chia: ${t} lbs · phải bằng ${tgt} lbs`,
@@ -510,6 +511,7 @@
       potatoes: "Papas", potatoesPrice: "$1 por 2 papas",
       corn: "Elote", cornPrice: "$2 cada uno",
       sauce: "Botella de Salsa", saucePrice: "$10 cada una",
+      mildSauce: "Suave", mediumSauce: "Medio", spicySauce: "Picante",
       notes: "Notas (opcional)", notesPh: "Alergias, solicitudes especiales…",
       bagSubtotal: "Total bolsa",
       totalBags: "Total bolsas",
@@ -529,7 +531,6 @@
       errBagEmpty: "Cada bolsa debe tener cangrejo o camarón (cualquier cantidad).",
       errSplit: (t, tgt) => `La división debe igualar ${tgt} lbs (actualmente ${t}).`,
       errOther: "Elegiste \"Otro\" — por favor describe en la nota.",
-      errSauce: "Elige un nivel de picante (Suave/Medio/Picante).",
       errSend: "No se pudo enviar: ",
       includes: (s,p,c) => `Incluye gratis: ${s} rebanadas de salchicha · ${p} papa · ${c} × ¼ elote`,
       splitTotal: (t,tgt) => `Total: ${t} lbs · debe igualar ${tgt} lbs`,
@@ -809,24 +810,35 @@
               </div>
             </div>
 
-            <div class="sauce-box">
-              <div class="sauce-head">
-                <div>
-                  <div class="name" data-i18n="sauce">${t('sauce')}</div>
-                  <span class="price" data-i18n="saucePrice">${t('saucePrice')}</span>
-                </div>
+            <div class="sauce-section">
+              <div class="sauce-header">
+                <div class="sauce-title" data-i18n="sauce">${t('sauce')}</div>
+                <div class="sauce-price" data-i18n="saucePrice">${t('saucePrice')}</div>
+              </div>
+              <div class="sauce-row" data-flavor="Mild">
+                <div class="flavor" data-i18n="mildSauce">${t('mildSauce')}</div>
                 <div class="qty">
-                  <button type="button" data-act="dec" data-target="bag${bag.id}SauceQty">−</button>
-                  <input id="bag${bag.id}SauceQty" type="number" min="0" step="1" value="0" />
-                  <button type="button" data-act="inc" data-target="bag${bag.id}SauceQty">+</button>
+                  <button type="button" data-act="dec" data-target="bag${bag.id}MildSauceQty">−</button>
+                  <input id="bag${bag.id}MildSauceQty" type="number" min="0" step="1" value="0" />
+                  <button type="button" data-act="inc" data-target="bag${bag.id}MildSauceQty">+</button>
                 </div>
               </div>
-              <div class="sauce-spice" id="bag${bag.id}SauceSpice">
-                <button type="button" data-val="Mild" data-i18n="mild">${t('mild')}</button>
-                <button type="button" data-val="Medium" data-i18n="medium">${t('medium')}</button>
-                <button type="button" data-val="Spicy" data-i18n="spicy">${t('spicy')}</button>
+              <div class="sauce-row" data-flavor="Medium">
+                <div class="flavor" data-i18n="mediumSauce">${t('mediumSauce')}</div>
+                <div class="qty">
+                  <button type="button" data-act="dec" data-target="bag${bag.id}MediumSauceQty">−</button>
+                  <input id="bag${bag.id}MediumSauceQty" type="number" min="0" step="1" value="0" />
+                  <button type="button" data-act="inc" data-target="bag${bag.id}MediumSauceQty">+</button>
+                </div>
               </div>
-              <input type="hidden" id="bag${bag.id}SauceSpiceLevel" value="" />
+              <div class="sauce-row" data-flavor="Spicy">
+                <div class="flavor" data-i18n="spicySauce">${t('spicySauce')}</div>
+                <div class="qty">
+                  <button type="button" data-act="dec" data-target="bag${bag.id}SpicySauceQty">−</button>
+                  <input id="bag${bag.id}SpicySauceQty" type="number" min="0" step="1" value="0" />
+                  <button type="button" data-act="inc" data-target="bag${bag.id}SpicySauceQty">+</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -876,16 +888,6 @@
           if(btn.dataset.act === 'inc') v++;
           else v = Math.max(0, v - 1);
           target.value = v;
-
-          if(btn.dataset.target.includes('SauceQty')){
-            const sauceSpiceDiv = document.getElementById(`bag${bagId}SauceSpice`);
-            const qty = v;
-            sauceSpiceDiv.classList.toggle('show', qty > 0);
-            if(qty === 0){
-              sauceSpiceDiv.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-              document.getElementById(`bag${bagId}SauceSpiceLevel`).value = '';
-            }
-          }
 
           PROTEINS.forEach(p => {
             if(btn.dataset.target.includes(`_${p.key}Lbs`)){
@@ -940,17 +942,6 @@
       }
     });
 
-    const sauceSpiceDiv = document.getElementById(`bag${bagId}SauceSpice`);
-    if(sauceSpiceDiv && !sauceSpiceDiv.classList.contains('sauce-spice-attached')){
-      sauceSpiceDiv.classList.add('sauce-spice-attached');
-      sauceSpiceDiv.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          sauceSpiceDiv.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          document.getElementById(`bag${bagId}SauceSpiceLevel`).value = btn.dataset.val;
-        });
-      });
-    }
   }
 
   function addSplitRowForBag(bagId, proteinKey){
@@ -1063,7 +1054,10 @@
       const sg = Math.max(0, parseInt(document.getElementById(`bag${bag.id}SausageLbs`).value || '0', 10));
       const po = Math.max(0, parseInt(document.getElementById(`bag${bag.id}Potatoes`).value || '0', 10));
       const co = Math.max(0, parseInt(document.getElementById(`bag${bag.id}Corn`).value || '0', 10));
-      const sc = Math.max(0, parseInt(document.getElementById(`bag${bag.id}SauceQty`).value || '0', 10));
+      const scMild = Math.max(0, parseInt(document.getElementById(`bag${bag.id}MildSauceQty`).value || '0', 10));
+      const scMed = Math.max(0, parseInt(document.getElementById(`bag${bag.id}MediumSauceQty`).value || '0', 10));
+      const scSp = Math.max(0, parseInt(document.getElementById(`bag${bag.id}SpicySauceQty`).value || '0', 10));
+      const sc = scMild + scMed + scSp;
       bagTotal += sg*PRICE.sausage + Math.ceil(po/2)*PRICE.potatoPer2 + co*PRICE.corn + sc*PRICE.sauce;
       document.getElementById(`bag${bag.id}Subtotal`).textContent = `${t('bagSubtotal')}: $${bagTotal}`;
       orderTotal += bagTotal;
@@ -1173,13 +1167,9 @@
         return null;
       }
 
-      const sauceQty = Math.max(0, parseInt(document.getElementById(`bag${bag.id}SauceQty`).value || '0', 10));
-      const sauceSpice = document.getElementById(`bag${bag.id}SauceSpiceLevel`).value;
-      if(sauceQty > 0 && !sauceSpice){
-        err.textContent = t('errSauce');
-        err.classList.add('show');
-        return null;
-      }
+      const mildSauceQty = Math.max(0, parseInt(document.getElementById(`bag${bag.id}MildSauceQty`).value || '0', 10));
+      const mediumSauceQty = Math.max(0, parseInt(document.getElementById(`bag${bag.id}MediumSauceQty`).value || '0', 10));
+      const spicySauceQty = Math.max(0, parseInt(document.getElementById(`bag${bag.id}SpicySauceQty`).value || '0', 10));
 
       const cf = Math.max(0, parseInt(document.getElementById(`bag${bag.id}_crawfishLbs`).value || '0', 10));
       const sh = Math.max(0, parseInt(document.getElementById(`bag${bag.id}_shrimpHeadOnLbs`).value || '0', 10));
@@ -1187,7 +1177,7 @@
       const sg = Math.max(0, parseInt(document.getElementById(`bag${bag.id}SausageLbs`).value || '0', 10));
       const po = Math.max(0, parseInt(document.getElementById(`bag${bag.id}Potatoes`).value || '0', 10));
       const co = Math.max(0, parseInt(document.getElementById(`bag${bag.id}Corn`).value || '0', 10));
-      const sc = sauceQty;
+      const sc = mildSauceQty + mediumSauceQty + spicySauceQty;
       const bagTotal = cf*12 + sh*16 + shl*18 + sg*6 + Math.ceil(po/2)*1 + co*2 + sc*10;
 
       const payload = {
@@ -1213,9 +1203,10 @@
         sausageLbs: sg,
         potatoes: po,
         corn: co,
-        sauceBottle: sc > 0,
-        sauceBottleQty: sc,
-        sauceBottleSpice: sauceSpice,
+        mildSauceQty,
+        mediumSauceQty,
+        spicySauceQty,
+        sauceTotalQty: sc,
         notes: document.getElementById(`bag${bag.id}Notes`).value.trim(),
         total: bagTotal,
         paid: 0,
