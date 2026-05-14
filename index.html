@@ -1148,15 +1148,15 @@
           } else if(p.key === 'shrimpHeadOn'){
             bagPayloads.shrimpHeadOnLbs = lbs;
             bagPayloads.shrimpType = 'Head On';
-            bagPayloads.shrimpSpiceLevel = spiceLevel;
-            bagPayloads.shrimpHeadOnSpiceBreakdown = spiceBreakdown;
-            bagPayloads.shrimpOtherSpiceNote = otherSpiceNote;
+            bagPayloads.headOnSpiceLevel = spiceLevel;
+            bagPayloads.headOnSpiceBreakdown = spiceBreakdown;
+            bagPayloads.headOnOtherSpiceNote = otherSpiceNote;
           } else if(p.key === 'shrimpHeadless'){
             bagPayloads.shrimpHeadlessLbs = lbs;
             bagPayloads.shrimpType = bagPayloads.shrimpType ? 'Both' : 'Headless';
-            bagPayloads.shrimpSpiceLevel = spiceLevel;
-            bagPayloads.shrimpHeadlessSpiceBreakdown = spiceBreakdown;
-            bagPayloads.shrimpOtherSpiceNote = otherSpiceNote;
+            bagPayloads.headlessSpiceLevel = spiceLevel;
+            bagPayloads.headlessSpiceBreakdown = spiceBreakdown;
+            bagPayloads.headlessOtherSpiceNote = otherSpiceNote;
           }
         }
       }
@@ -1197,10 +1197,12 @@
         shrimpHeadOnLbs: sh || 0,
         shrimpHeadlessLbs: shl || 0,
         shrimpType: bagPayloads.shrimpType || '',
-        shrimpSpiceLevel: bagPayloads.shrimpSpiceLevel || '',
-        shrimpHeadOnSpiceBreakdown: bagPayloads.shrimpHeadOnSpiceBreakdown || '',
-        shrimpHeadlessSpiceBreakdown: bagPayloads.shrimpHeadlessSpiceBreakdown || '',
-        shrimpOtherSpiceNote: bagPayloads.shrimpOtherSpiceNote || '',
+        headOnSpiceLevel: bagPayloads.headOnSpiceLevel || '',
+        headOnSpiceBreakdown: bagPayloads.headOnSpiceBreakdown || '',
+        headOnOtherSpiceNote: bagPayloads.headOnOtherSpiceNote || '',
+        headlessSpiceLevel: bagPayloads.headlessSpiceLevel || '',
+        headlessSpiceBreakdown: bagPayloads.headlessSpiceBreakdown || '',
+        headlessOtherSpiceNote: bagPayloads.headlessOtherSpiceNote || '',
         sausageLbs: sg,
         potatoes: po,
         corn: co,
