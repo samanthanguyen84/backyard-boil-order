@@ -1149,13 +1149,13 @@
             bagPayloads.shrimpHeadOnLbs = lbs;
             bagPayloads.shrimpType = 'Head On';
             bagPayloads.shrimpSpiceLevel = spiceLevel;
-            bagPayloads.shrimpSpiceBreakdown = spiceBreakdown;
+            bagPayloads.shrimpHeadOnSpiceBreakdown = spiceBreakdown;
             bagPayloads.shrimpOtherSpiceNote = otherSpiceNote;
           } else if(p.key === 'shrimpHeadless'){
             bagPayloads.shrimpHeadlessLbs = lbs;
             bagPayloads.shrimpType = bagPayloads.shrimpType ? 'Both' : 'Headless';
             bagPayloads.shrimpSpiceLevel = spiceLevel;
-            bagPayloads.shrimpSpiceBreakdown = spiceBreakdown;
+            bagPayloads.shrimpHeadlessSpiceBreakdown = spiceBreakdown;
             bagPayloads.shrimpOtherSpiceNote = otherSpiceNote;
           }
         }
@@ -1198,7 +1198,8 @@
         shrimpHeadlessLbs: shl || 0,
         shrimpType: bagPayloads.shrimpType || '',
         shrimpSpiceLevel: bagPayloads.shrimpSpiceLevel || '',
-        shrimpSpiceBreakdown: bagPayloads.shrimpSpiceBreakdown || '',
+        shrimpHeadOnSpiceBreakdown: bagPayloads.shrimpHeadOnSpiceBreakdown || '',
+        shrimpHeadlessSpiceBreakdown: bagPayloads.shrimpHeadlessSpiceBreakdown || '',
         shrimpOtherSpiceNote: bagPayloads.shrimpOtherSpiceNote || '',
         sausageLbs: sg,
         potatoes: po,
